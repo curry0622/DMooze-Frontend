@@ -1,0 +1,7 @@
+.nav-link {
+  @include flex(row, center, center);
+  @include neumorphism();
+
+  padding: 0.5rem 1rem;
+  color: #121212;
+}

@@ -1,4 +1,8 @@
+@import './link';
+
 .nav-container {
+  @include flex(row, space-evenly, center);
+
   width: 100%;
   height: 10%;
   border: red solid 1px;
