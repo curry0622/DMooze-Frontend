@@ -1,11 +1,12 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
+import Web3Context from './contexts/web3Context';
 import getWeb3 from './utils/getWeb3';
 import SimpleStorageContract from './contracts/SimpleStorage.json';
 
 function App() {
-  const [storageValue, setStorageValue] = useState(undefined);
+  // const [storageValue, setStorageValue] = useState(undefined);
   const [web3, setWeb3] = useState(undefined);
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState([]);
@@ -58,9 +59,22 @@ function App() {
     }
   }, [web3]);
 
+  const web3ContextValue = {
+    web3,
+    setWeb3,
+    accounts,
+    setAccounts,
+    contract,
+    setContract,
+  };
+
   if (web3 === undefined) return <div>Loading Web3...</div>;
 
-  return <div>Web3 loaded</div>;
+  return (
+    <Web3Context.Provider value={web3ContextValue}>
+      <div>Web3 loaded</div>
+    </Web3Context.Provider>
+  );
 }
 
 export default App;
