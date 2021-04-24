@@ -11,7 +11,7 @@ const HomeContainer = () => (
         <div>學生活動募款平台</div>
       </div>
     </div>
-    <div className={classNames('home-right-container')}>right</div>
+    <div className={classNames('home-right-container')}>{}</div>
   </div>
 );
 
