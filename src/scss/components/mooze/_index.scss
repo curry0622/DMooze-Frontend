@@ -1,3 +1,5 @@
+@import './form';
+
 .mooze-container {
   @include flex(row, space-evenly, center);
 
@@ -5,16 +7,31 @@
   height: 90%;
 }
 
+.mooze-left-container {
+  @include flex(column, center, center);
+
+  width: 50%;
+  height: 100%;
+}
+
+.mooze-right-container {
+  @include flex(column, center, center);
+
+  width: 50%;
+  height: 100%;
+}
+
 .mooze-banner-img {
   width: 30%;
+  object-fit: contain;
 }
 
 .mooze-metamask-btn {
   @include flex(column, center, center);
   @include neumorphism();
 
-  width: 20rem;
-  height: 10rem;
+  width: 50%;
+  height: 30%;
 }
 
 .mooze-metamask-img {

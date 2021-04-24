@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import Web3Context from '../../contexts/web3Context';
+import Form from './form';
 
 const MoozeContainer = () => {
   // get web3 context
@@ -30,27 +31,31 @@ const MoozeContainer = () => {
 
   return (
     <div className={classNames('mooze-container')}>
-      <img
-        className={classNames('mooze-banner-img')}
-        alt="DMooze"
-        src={`${process.env.PUBLIC_URL}/moozePage/moose.svg`}
-      />
-      {web3 !== undefined ? (
-        <div>connected</div>
-      ) : (
-        <button
-          className={classNames('mooze-metamask-btn')}
-          type="button"
-          onClick={onClickConnect}
-        >
-          <img
-            className={classNames('mooze-metamask-img')}
-            alt="metamask"
-            src={`${process.env.PUBLIC_URL}/moozePage/metamask.svg`}
-          />
-          CONNECT TO METAMASK
-        </button>
-      )}
+      <div className={classNames('mooze-left-container')}>
+        <img
+          className={classNames('mooze-banner-img')}
+          alt="DMooze"
+          src={`${process.env.PUBLIC_URL}/moozePage/moose.svg`}
+        />
+      </div>
+      <div className={classNames('mooze-right-container')}>
+        {web3 !== undefined ? (
+          <Form />
+        ) : (
+          <button
+            className={classNames('mooze-metamask-btn')}
+            type="button"
+            onClick={onClickConnect}
+          >
+            <img
+              className={classNames('mooze-metamask-img')}
+              alt="metamask"
+              src={`${process.env.PUBLIC_URL}/moozePage/metamask.svg`}
+            />
+            CONNECT TO METAMASK
+          </button>
+        )}
+      </div>
     </div>
   );
 };

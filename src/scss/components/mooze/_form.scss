@@ -1,0 +1,8 @@
+.form-container {
+  @include flex(column, space-evenly, center);
+  @include neumorphism();
+
+  width: 70%;
+  height: 80%;
+  border-radius: 5%;
+}
