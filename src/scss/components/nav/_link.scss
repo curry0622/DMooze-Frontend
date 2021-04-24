@@ -7,13 +7,19 @@
   color: #555;
 }
 
+.nav-logo {
+  width: 120px;
+  object-fit: contain;
+  // border: red solid 1px;
+}
+
 .nav-link--others {
   @include flex(row, center, center);
 
   margin-left: 2rem;
   padding: 0.5rem 1rem;
   color: #555;
-  border-radius: 5px;
+  // border-radius: 5px;
   transition: all ease 0.4s;
 
   &:hover {

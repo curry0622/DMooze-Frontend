@@ -1,0 +1,31 @@
+.home-container {
+  @include flex(row, center, center);
+
+  width: 99%;
+  height: 90%;
+}
+
+.home-left-container {
+  @include flex(column, center, center);
+
+  width: 50%;
+  height: 100%;
+}
+
+.home-right-container {
+  @include flex(column, center, center);
+
+  width: 50%;
+  height: 100%;
+}
+
+.home-title {
+  font-size: 5rem;
+}
+
+.home-chinese-description {
+  // width: 30%;
+  // position: relative;
+  margin-top: 1.2rem;
+  // border: red solid 1px;
+}

@@ -8,7 +8,15 @@ const NavLink = ({ path, name }) => (
     to={path}
     className={classNames(`nav-link--${path === '/' ? 'home' : 'others'}`)}
   >
-    {name}
+    {path === '/' ? (
+      <img
+        className={classNames('nav-logo')}
+        alt="DMooze"
+        src={`${process.env.PUBLIC_URL}/nav/logo.svg`}
+      />
+    ) : (
+      name
+    )}
   </Link>
 );
 
