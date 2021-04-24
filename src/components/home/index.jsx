@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import Card from './card';
 
 const HomeContainer = () => (
   <div className={classNames('home-container')}>
@@ -11,7 +12,11 @@ const HomeContainer = () => (
         <div>學生活動募款平台</div>
       </div>
     </div>
-    <div className={classNames('home-right-container')}>{}</div>
+    <div className={classNames('home-right-container')}>
+      <Card img="Jim" />
+      <Card img="Chloe" />
+      <Card img="Nick" />
+    </div>
   </div>
 );
 

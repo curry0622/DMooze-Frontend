@@ -1,0 +1,23 @@
+.home-card-container {
+  @include flex(column, space-between, center);
+
+  padding: 1rem;
+  width: 100%;
+  border: red solid 1px;
+  border-radius: 5%;
+}
+
+.home-card-title {
+  margin-bottom: 0.5rem;
+}
+
+.home-card-img {
+  width: 100%;
+  object-fit: contain;
+  border: red solid 1px;
+  border-radius: 5%;
+}
+
+.home-card-description {
+  margin-top: 0.5rem;
+}

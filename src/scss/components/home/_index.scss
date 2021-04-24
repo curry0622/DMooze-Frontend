@@ -1,3 +1,5 @@
+@import './card';
+
 .home-container {
   @include flex(row, center, center);
 
@@ -8,15 +10,18 @@
 .home-left-container {
   @include flex(column, center, center);
 
-  width: 50%;
+  width: 40%;
   height: 100%;
 }
 
 .home-right-container {
   @include flex(column, center, center);
 
-  width: 50%;
-  height: 100%;
+  display: grid;
+  grid-column-gap: 3rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 3rem;
+  width: 60%;
 }
 
 .home-title {
