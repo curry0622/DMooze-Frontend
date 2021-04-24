@@ -2,8 +2,19 @@
   @include flex(column, space-evenly, center);
 
   width: 70%;
-  height: 80%;
+  height: 85%;
   border-radius: 5%;
   box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.13),
     -8px -8px 15px rgba(255, 255, 255, 1);
+
+  > input,
+  textarea {
+    @include neumorphism();
+
+    width: 70%;
+    height: 5%;
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3),
+      inset -2px -2px 4px rgba(255, 255, 255, 1);
+    text-shadow: none;
+  }
 }
