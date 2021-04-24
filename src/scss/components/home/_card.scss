@@ -1,23 +1,25 @@
 .home-card-container {
   @include flex(column, space-between, center);
+  @include neumorphism-convex-strong();
 
   padding: 1rem;
   width: 100%;
-  border: red solid 1px;
-  border-radius: 5%;
+  border-radius: 20px;
 }
 
 .home-card-title {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .home-card-img {
+  @include neumorphism-concave-strong();
+
   width: 100%;
   object-fit: contain;
-  border: red solid 1px;
   border-radius: 5%;
 }
 
 .home-card-description {
   margin-top: 0.5rem;
+  padding: 0.5rem 0.7rem;
 }

@@ -12,7 +12,7 @@ const NavLink = ({ path, name }) => (
       <img
         className={classNames('nav-logo')}
         alt="DMooze"
-        src={`${process.env.PUBLIC_URL}/nav/logo.svg`}
+        src={`${process.env.PUBLIC_URL}/nav/logo.png`}
       />
     ) : (
       name
