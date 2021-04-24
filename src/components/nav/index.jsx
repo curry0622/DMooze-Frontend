@@ -6,8 +6,8 @@ const Nav = () => (
   <div className={classNames('nav-container')}>
     <NavLink path="/" name="DMooze" />
     <div className={classNames('nav-links')}>
-      <NavLink path="/projects" name="PROJECTS" />
-      <NavLink path="/mooze" name="START YOUR MOOZE" />
+      <NavLink path="/projects" name="專案" />
+      <NavLink path="/mooze" name="開始募款" />
     </div>
   </div>
 );

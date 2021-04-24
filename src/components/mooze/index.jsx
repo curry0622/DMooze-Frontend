@@ -32,11 +32,11 @@ const MoozeContainer = () => {
   return (
     <div className={classNames('mooze-container')}>
       <div className={classNames('mooze-left-container')}>
-        <img
+        {/* <img
           className={classNames('mooze-banner-img')}
           alt="DMooze"
           src={`${process.env.PUBLIC_URL}/moozePage/moose.svg`}
-        />
+        /> */}
       </div>
       <div className={classNames('mooze-right-container')}>
         {web3 !== undefined ? (
