@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Web3Context from './contexts/web3Context';
 import getWeb3 from './utils/getWeb3';
@@ -29,7 +29,7 @@ function App() {
   };
 
   // Use web3 to get the user's accounts.
-  const getAccountInstance = async () => {
+  const getAccountsInstance = async () => {
     try {
       setAccounts(await web3.eth.getAccounts());
     } catch (error) {
@@ -60,7 +60,7 @@ function App() {
 
   // useEffect(() => {
   //   if (web3 !== undefined) {
-  //     getAccountInstance();
+  //     getAccountsInstance();
   //     getContractInstance();
   //   }
   // }, [web3]);
@@ -69,7 +69,7 @@ function App() {
     web3,
     getWeb3Instance,
     accounts,
-    getAccountInstance,
+    getAccountsInstance,
     contract,
     getContractInstance,
   };
