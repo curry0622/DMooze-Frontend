@@ -28,12 +28,10 @@
 
 .mooze-metamask-btn {
   @include flex(column, center, center);
-  @include neumorphism();
+  @include neumorphism-convex-strong();
 
   width: 50%;
   height: 30%;
-  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.13),
-    -8px -8px 15px rgba(255, 255, 255, 1);
 }
 
 .mooze-metamask-img {

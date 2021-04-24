@@ -1,20 +1,21 @@
 .form-container {
   @include flex(column, space-evenly, center);
+  @include neumorphism-convex-strong();
 
   width: 70%;
   height: 85%;
   border-radius: 5%;
-  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.13),
-    -8px -8px 15px rgba(255, 255, 255, 1);
 
   > input,
   textarea {
-    @include neumorphism();
+    @include neumorphism-concave-normal();
 
     width: 70%;
     height: 5%;
-    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3),
-      inset -2px -2px 4px rgba(255, 255, 255, 1);
+    background-color: transparent;
+    border: 0;
+    border-radius: 10px;
+    outline: 0;
     text-shadow: none;
   }
 }

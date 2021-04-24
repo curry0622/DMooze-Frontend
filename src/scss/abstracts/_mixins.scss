@@ -27,3 +27,29 @@
     text-shadow: none;
   }
 }
+
+// neumorphism concave 凹
+@mixin neumorphism-concave-strong {
+  box-shadow: inset 8px 8px 15px rgba(0, 0, 0, 0.13),
+    inset -8px -8px 15px rgba(255, 255, 255, 1);
+}
+
+@mixin neumorphism-concave-normal {
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3),
+    inset -2px -2px 4px rgba(255, 255, 255, 1);
+}
+
+// @mixin neumorphism-concave-weak {}
+
+// neumorphism convex 凸
+@mixin neumorphism-convex-strong {
+  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.13),
+    -8px -8px 15px rgba(255, 255, 255, 1);
+}
+
+@mixin neumorphism-convex-normal {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
+    -2px -2px 4px rgba(255, 255, 255, 1);
+}
+
+// @mixin neumorphism-convex-weak {}
