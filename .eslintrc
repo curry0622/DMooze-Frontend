@@ -1,7 +1,11 @@
 {
+  "env": {
+    "browser": true
+  },
   "extends": ["airbnb", "prettier"],
   "plugins": ["prettier"],
   "rules": {
-    "semi": "error"
+    "semi": "error",
+    "no-unused-vars": "warn"
   }
 }
