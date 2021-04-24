@@ -9,6 +9,7 @@
     "stylelint-order"
   ],
   "rules": {
+    "color-named": null,
     "max-nesting-depth": null,
     "no-empty-source": null,
     "no-descending-specificity": null,

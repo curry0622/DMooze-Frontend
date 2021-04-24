@@ -1,9 +1,14 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import Web3Context from './contexts/web3Context';
 import getWeb3 from './utils/getWeb3';
 import SimpleStorageContract from './contracts/SimpleStorage.json';
+
+import HomePage from './pages/home';
+import ProjectsPage from './pages/projects';
+import MoozePage from './pages/mooze';
 
 function App() {
   // const [storageValue, setStorageValue] = useState(undefined);
@@ -24,7 +29,7 @@ function App() {
   };
 
   // Use web3 to get the user's accounts.
-  const getAccountInstance = async () => {
+  const getAccountsInstance = async () => {
     try {
       setAccounts(await web3.eth.getAccounts());
     } catch (error) {
@@ -49,31 +54,33 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    getWeb3Instance();
-  }, []);
+  // useEffect(() => {
+  //   getWeb3Instance();
+  // }, []);
 
-  useEffect(() => {
-    if (web3 !== undefined) {
-      getAccountInstance();
-      getContractInstance();
-    }
-  }, [web3]);
+  // useEffect(() => {
+  //   if (web3 !== undefined) {
+  //     getAccountsInstance();
+  //     getContractInstance();
+  //   }
+  // }, [web3]);
 
   const web3ContextValue = {
     web3,
     getWeb3Instance,
     accounts,
-    getAccountInstance,
+    getAccountsInstance,
     contract,
     getContractInstance,
   };
 
-  if (web3 === undefined) return <div>Loading Web3...</div>;
-
   return (
     <Web3Context.Provider value={web3ContextValue}>
-      <div>Web3 loaded</div>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/projects" component={ProjectsPage} />
+        <Route path="/mooze" component={MoozePage} />
+      </Switch>
     </Web3Context.Provider>
   );
 }
