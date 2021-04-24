@@ -1,9 +1,12 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import Web3Context from './contexts/web3Context';
 import getWeb3 from './utils/getWeb3';
 import SimpleStorageContract from './contracts/SimpleStorage.json';
+
+import HomePage from './pages/home';
 
 function App() {
   // const [storageValue, setStorageValue] = useState(undefined);
@@ -49,16 +52,16 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    getWeb3Instance();
-  }, []);
+  // useEffect(() => {
+  //   getWeb3Instance();
+  // }, []);
 
-  useEffect(() => {
-    if (web3 !== undefined) {
-      getAccountInstance();
-      getContractInstance();
-    }
-  }, [web3]);
+  // useEffect(() => {
+  //   if (web3 !== undefined) {
+  //     getAccountInstance();
+  //     getContractInstance();
+  //   }
+  // }, [web3]);
 
   const web3ContextValue = {
     web3,
@@ -69,11 +72,11 @@ function App() {
     getContractInstance,
   };
 
-  if (web3 === undefined) return <div>Loading Web3...</div>;
-
   return (
     <Web3Context.Provider value={web3ContextValue}>
-      <div>Web3 loaded</div>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+      </Switch>
     </Web3Context.Provider>
   );
 }
