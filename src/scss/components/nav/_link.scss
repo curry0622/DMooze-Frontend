@@ -10,10 +10,37 @@
 .nav-logo {
   width: 120px;
   object-fit: contain;
-  // border: red solid 1px;
+  transition: all ease 0.4s;
+
+  &:hover {
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.3));
+    transform: scale(1.1);
+  }
 }
 
-.nav-link--others {
+.nav-link--mooze {
+  @include flex(row, center, center);
+
+  margin-left: 2rem;
+  padding: 0.7rem 1rem;
+  text-align: center;
+  color: #fff;
+  background-color: #555;
+  border-radius: 5px;
+  transition: all ease 0.4s;
+
+  &:hover {
+    @include neumorphism-convex-strong();
+
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.nav-link {
   @include flex(row, center, center);
 
   margin-left: 2rem;

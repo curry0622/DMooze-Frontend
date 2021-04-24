@@ -3,11 +3,8 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const NavLink = ({ path, name }) => (
-  <Link
-    to={path}
-    className={classNames(`nav-link--${path === '/' ? 'home' : 'others'}`)}
-  >
+const NavLink = ({ path, name, type }) => (
+  <Link to={path} className={classNames(`nav-link${type}`)}>
     {path === '/' ? (
       <img
         className={classNames('nav-logo')}
@@ -23,6 +20,11 @@ const NavLink = ({ path, name }) => (
 NavLink.propTypes = {
   path: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  type: PropTypes.string,
+};
+
+NavLink.defaultProps = {
+  type: '',
 };
 
 export default NavLink;
