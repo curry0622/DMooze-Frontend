@@ -1,4 +1,24 @@
 .mooze-container {
+  @include flex(row, space-evenly, center);
+
   width: 100%;
   height: 90%;
+}
+
+.mooze-banner-img {
+  width: 30%;
+}
+
+.mooze-metamask-btn {
+  @include flex(column, center, center);
+  @include neumorphism();
+
+  width: 20rem;
+  height: 10rem;
+}
+
+.mooze-metamask-img {
+  margin-bottom: 1rem;
+  width: 6rem;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.8));
 }

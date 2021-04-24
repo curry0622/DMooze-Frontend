@@ -30,15 +30,25 @@ const MoozeContainer = () => {
 
   return (
     <div className={classNames('mooze-container')}>
+      <img
+        className={classNames('mooze-banner-img')}
+        alt="DMooze"
+        src={`${process.env.PUBLIC_URL}/moozePage/moose.svg`}
+      />
       {web3 !== undefined ? (
         <div>connected</div>
       ) : (
         <button
-          className={classNames('mooze-connect')}
+          className={classNames('mooze-metamask-btn')}
           type="button"
           onClick={onClickConnect}
         >
-          Connect to metamask
+          <img
+            className={classNames('mooze-metamask-img')}
+            alt="metamask"
+            src={`${process.env.PUBLIC_URL}/moozePage/metamask.svg`}
+          />
+          CONNECT TO METAMASK
         </button>
       )}
     </div>
