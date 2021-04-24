@@ -1,7 +1,8 @@
 import React from 'react';
+import classNames from 'classnames';
 
 const Nav = () => {
-  return <div>Nav</div>;
+  return <div className={classNames('nav-container')}>Nav</div>;
 };
 
 export default Nav;

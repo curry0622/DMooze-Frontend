@@ -7,6 +7,8 @@ import getWeb3 from './utils/getWeb3';
 import SimpleStorageContract from './contracts/SimpleStorage.json';
 
 import HomePage from './pages/home';
+import ProjectsPage from './pages/projects';
+import MoozePage from './pages/mooze';
 
 function App() {
   // const [storageValue, setStorageValue] = useState(undefined);
@@ -76,6 +78,8 @@ function App() {
     <Web3Context.Provider value={web3ContextValue}>
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route path="/projects" component={ProjectsPage} />
+        <Route path="/mooze" component={MoozePage} />
       </Switch>
     </Web3Context.Provider>
   );
