@@ -1,7 +1,18 @@
-.nav-link {
+.nav-link--home {
+  @include flex(row, center, center);
+
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: bolder;
+  color: #555;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15),
+    -3px -3px 3px rgba(255, 255, 255, 1);
+}
+
+.nav-link--others {
   @include flex(row, center, center);
   @include neumorphism();
 
   padding: 0.5rem 1rem;
-  color: #121212;
+  color: #555;
 }

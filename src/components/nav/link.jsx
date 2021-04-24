@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const NavLink = ({ path, name }) => (
-  <Link to={path} className={classNames('nav-link')}>
+  <Link
+    to={path}
+    className={classNames(`nav-link--${path === '/' ? 'home' : 'others'}`)}
+  >
     {name}
   </Link>
 );
