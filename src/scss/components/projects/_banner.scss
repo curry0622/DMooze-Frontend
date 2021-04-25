@@ -13,6 +13,8 @@
 }
 
 .projects-banner-right-container {
+  @include flex(column, center, center);
+
   width: 60%;
   height: 100%;
 }
@@ -24,4 +26,15 @@
 .projects-banner-description {
   margin-top: 1.2rem;
   font-size: 1.1rem;
+}
+
+.project-banner-right-img-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 80%;
+}
+
+.projects-banner-right-img {
+  width: 100%;
+  object-fit: contain;
 }

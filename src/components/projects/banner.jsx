@@ -14,6 +14,23 @@ const Banner = () => (
     </div>
     <div className={classNames('projects-banner-right-container')}>
       {/* right */}
+      <div className={classNames('project-banner-right-img-container')}>
+        <img
+          className={classNames('projects-banner-right-img')}
+          alt="person"
+          src={`${process.env.PUBLIC_URL}/projectsPage/left.png`}
+        />
+        <img
+          className={classNames('projects-banner-right-img')}
+          alt="person"
+          src={`${process.env.PUBLIC_URL}/projectsPage/mid.png`}
+        />
+        <img
+          className={classNames('projects-banner-right-img')}
+          alt="person"
+          src={`${process.env.PUBLIC_URL}/projectsPage/right.png`}
+        />
+      </div>
     </div>
   </div>
 );
