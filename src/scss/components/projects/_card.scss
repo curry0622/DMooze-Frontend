@@ -1,21 +1,44 @@
 .projects-card-container {
   @include flex(column, space-between, flex-start);
+  @include neumorphism-convex-normal();
 
+  margin-bottom: 5rem;
   padding: 1rem;
-  width: 100%;
+  width: 25vw;
+  border-radius: 20px;
 }
 
 .projects-card-header {
   width: 100%;
+  height: 2rem;
+  font-size: 1.2rem;
+  text-align: center;
 }
 
 .projects-card-img {
-  width: 100%;
-  object-fit: contain;
+  width: calc(25vw - 2rem);
+  height: calc(25vw - 2rem);
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: top;
 }
 
 .projects-card-content-container {
   @include flex(column, flex-start, flex-start);
 
+  padding: 1rem;
   width: 100%;
+}
+
+.projects-card-content-name {
+  line-height: 3rem;
+  font-size: 1.5rem;
+}
+
+.projects-card-content-progress {
+  @include neumorphism-concave-normal();
+
+  width: 100%;
+  color: transparent;
+  border-radius: 20px;
 }

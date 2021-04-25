@@ -1,7 +1,7 @@
 .projects-banner-container {
   @include flex(column, flex-start, center);
 
-  padding: 3rem 0;
+  padding: 4rem 0;
   width: 100%;
   height: 700px;
   // border: green solid 1px;
@@ -10,7 +10,7 @@
 .projects-banner-left-container {
   @include flex(column, center, center);
 
-  margin-bottom: 9rem;
+  margin-bottom: 7rem;
   width: 40%;
   // height: 100%;
   // border: red solid 1px;
@@ -26,11 +26,14 @@
 }
 
 .projects-banner-title {
+  margin-bottom: 0.5rem;
   font-size: 5rem;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25),
+    -3px -3px 3px rgba(255, 255, 255, 1);
 }
 
 .projects-banner-description {
-  margin-top: 1.2rem;
+  margin-top: 0.5rem;
   font-size: 1.1rem;
   text-align: center;
 }
