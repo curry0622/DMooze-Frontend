@@ -1,0 +1,27 @@
+.projects-banner-container {
+  @include flex(row, space-between, center);
+
+  width: 100%;
+  height: 100%;
+}
+
+.projects-banner-left-container {
+  @include flex(column, center, center);
+
+  width: 40%;
+  height: 100%;
+}
+
+.projects-banner-right-container {
+  width: 60%;
+  height: 100%;
+}
+
+.projects-banner-title {
+  font-size: 5rem;
+}
+
+.projects-banner-description {
+  margin-top: 1.2rem;
+  font-size: 1.1rem;
+}
