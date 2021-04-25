@@ -5,6 +5,7 @@ import Banner from './banner';
 const ProjectsContainer = () => (
   <div className={classNames('projects-container')}>
     <Banner />
+    {/* <div>wtf</div> */}
   </div>
 );
 
