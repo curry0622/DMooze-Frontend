@@ -2,7 +2,30 @@ import React from 'react';
 import classNames from 'classnames';
 
 const Card = () => (
-  <div className={classNames('projects-card-container')}>Card</div>
+  <div className={classNames('projects-card-container')}>
+    <div className={classNames('projects-card-header')}>header</div>
+    <img
+      className={classNames('projects-card-img')}
+      alt="project"
+      src={`${process.env.PUBLIC_URL}/projectsPage/sample.png`}
+    />
+    <div className={classNames('projects-card-content-container')}>
+      <div className={classNames('projects-card-content-name')}>
+        Project name
+      </div>
+      <div className={classNames('projects-card-content-progress')}>
+        progress
+      </div>
+      <div className={classNames('projects-card-content-info-container')}>
+        <div className={classNames('projects-card-content-info-money')}>
+          $2400 | 12%
+        </div>
+        <div className={classNames('projects-card-content-info-day')}>
+          還剩6天
+        </div>
+      </div>
+    </div>
+  </div>
 );
 
 export default Card;

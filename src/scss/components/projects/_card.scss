@@ -1,0 +1,21 @@
+.projects-card-container {
+  @include flex(column, space-between, flex-start);
+
+  padding: 1rem;
+  width: 100%;
+}
+
+.projects-card-header {
+  width: 100%;
+}
+
+.projects-card-img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.projects-card-content-container {
+  @include flex(column, flex-start, flex-start);
+
+  width: 100%;
+}

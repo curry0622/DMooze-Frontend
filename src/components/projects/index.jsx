@@ -1,11 +1,16 @@
 import React from 'react';
 import classNames from 'classnames';
 import Banner from './banner';
+import Card from './card';
 
 const ProjectsContainer = () => (
   <div className={classNames('projects-container')}>
     <Banner />
-    {/* <div>wtf</div> */}
+    <div className={classNames('projects-cards-container')}>
+      <Card />
+      <Card />
+      <Card />
+    </div>
   </div>
 );
 
