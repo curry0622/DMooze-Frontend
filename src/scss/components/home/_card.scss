@@ -1,26 +1,56 @@
 .home-card-container {
   @include flex(column, space-between, center);
-  @include neumorphism-convex-strong();
+  @include neumorphism-convex-normal();
 
+  cursor: pointer;
   padding: 1rem;
   width: 100%;
+  max-height: 300px;
   border-radius: 20px;
+  transition: max-height ease-in 1.5s;
+
+  &:hover {
+    @include neumorphism-convex-strong();
+
+    max-height: 800px;
+    transition: all ease-in 1s;
+    transition: max-height ease-in 1.5s;
+
+    .home-card-img {
+      @include neumorphism-concave-strong();
+    }
+
+    .home-card-description {
+      height: auto;
+      opacity: 1;
+      transition: all ease 0.8s;
+      transition-delay: 0.3s;
+    }
+  }
 }
 
 .home-card-title {
   margin-bottom: 0.8rem;
+  transition: all ease 0.5s;
 }
 
 .home-card-img {
-  @include neumorphism-concave-strong();
+  @include neumorphism-concave-normal();
 
+  display: block;
+  padding: 5px;
   width: 100%;
   object-fit: contain;
   border-radius: 5%;
+  transition: all ease 0.5s;
 }
 
 .home-card-description {
+  display: block;
   margin-top: 0.5rem;
   padding: 0.5rem 0.7rem;
+  height: 0;
   font-size: 0.9rem;
+  line-height: 1.2rem;
+  opacity: 0;
 }

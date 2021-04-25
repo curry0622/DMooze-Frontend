@@ -3,7 +3,11 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 const Card = ({ title, img, description }) => (
-  <div className={classNames('home-card-container')}>
+  <div
+    className={classNames('home-card-container')}
+    onMouseOver={() => {}}
+    onFocus={() => {}}
+  >
     <div className={classNames('home-card-title')}>{title}</div>
     <img
       className={classNames('home-card-img')}
