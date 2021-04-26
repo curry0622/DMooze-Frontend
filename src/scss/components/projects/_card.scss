@@ -2,10 +2,18 @@
   @include flex(column, space-between, flex-start);
   @include neumorphism-convex-normal();
 
+  cursor: pointer;
   margin-bottom: 5rem;
   padding: 1rem;
   width: 25vw;
   border-radius: 20px;
+  transition: all ease 0.3s;
+
+  &:hover {
+    @include neumorphism-convex-strong();
+
+    transform: scale(1.03);
+  }
 }
 
 .projects-card-header {
@@ -16,6 +24,9 @@
 }
 
 .projects-card-img {
+  @include neumorphism-concave-normal();
+
+  padding: 5px;
   width: calc(25vw - 2rem);
   height: calc(25vw - 2rem);
   border-radius: 10px;
@@ -58,7 +69,6 @@
 
   content: '';
   position: absolute;
-  left: 12%;
   width: 100%;
   height: 100%;
   background-color: #edeae9;
