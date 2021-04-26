@@ -35,14 +35,33 @@
 .projects-card-content-name {
   line-height: 3rem;
   font-size: 1.5rem;
+  text-shadow: 1.5px 1.5px 2px rgba(0, 0, 0, 0.25),
+    -1.5px -1.5px 2px rgba(255, 255, 255, 1);
 }
 
 .projects-card-content-progress {
+  // @include neumorphism-convex-normal();
+
+  position: relative;
+  overflow: hidden;
+  margin: 15px 0;
+  width: 100%;
+  height: 5px;
+  // color: transparent;
+  background-color: #555;
+  // border: red solid 1px;
+  border-radius: 20px;
+}
+
+.projects-card-content-progress-value {
   @include neumorphism-concave-normal();
 
+  content: '';
+  position: absolute;
+  left: 12%;
   width: 100%;
-  color: transparent;
-  border-radius: 20px;
+  height: 100%;
+  background-color: #edeae9;
 }
 
 .projects-card-content-info-container {
@@ -55,4 +74,11 @@
 .projects-card-content-info-money {
   font-size: 1.2rem;
   line-height: 2rem;
+  // border: red solid 1px;
+
+  > span {
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: #555 solid 1px;
+  }
 }
