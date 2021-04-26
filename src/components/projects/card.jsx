@@ -13,17 +13,17 @@ const Card = () => (
       <div className={classNames('projects-card-content-name')}>
         區塊鏈募資平台
       </div>
-      <div className={classNames('projects-card-content-progress')}>
+      {/* <div className={classNames('projects-card-content-progress')}>
         progress
-      </div>
-      {/* <div className={classNames('projects-card-content-info-container')}>
+      </div> */}
+      <div className={classNames('projects-card-content-info-container')}>
         <div className={classNames('projects-card-content-info-money')}>
           $2400 | 12%
         </div>
         <div className={classNames('projects-card-content-info-day')}>
           還剩6天
         </div>
-      </div> */}
+      </div>
     </div>
   </div>
 );

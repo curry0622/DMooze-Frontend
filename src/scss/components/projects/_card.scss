@@ -26,8 +26,10 @@
 .projects-card-content-container {
   @include flex(column, flex-start, flex-start);
 
-  padding: 1rem;
+  padding: 0.5rem;
+  padding-bottom: 0;
   width: 100%;
+  // border: red solid 1px;
 }
 
 .projects-card-content-name {
@@ -41,4 +43,16 @@
   width: 100%;
   color: transparent;
   border-radius: 20px;
+}
+
+.projects-card-content-info-container {
+  @include flex(row, space-between, center);
+
+  width: 100%;
+  // border: red solid 1px;
+}
+
+.projects-card-content-info-money {
+  font-size: 1.2rem;
+  line-height: 2rem;
 }
