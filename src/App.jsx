@@ -9,6 +9,7 @@ import SimpleStorageContract from './contracts/SimpleStorage.json';
 import HomePage from './pages/home';
 import ProjectsPage from './pages/projects';
 import MoozePage from './pages/mooze';
+import ProjectInfoPage from './pages/projectInfo';
 
 function App() {
   // const [storageValue, setStorageValue] = useState(undefined);
@@ -54,17 +55,6 @@ function App() {
     }
   };
 
-  // useEffect(() => {
-  //   getWeb3Instance();
-  // }, []);
-
-  // useEffect(() => {
-  //   if (web3 !== undefined) {
-  //     getAccountsInstance();
-  //     getContractInstance();
-  //   }
-  // }, [web3]);
-
   const web3ContextValue = {
     web3,
     getWeb3Instance,
@@ -78,8 +68,9 @@ function App() {
     <Web3Context.Provider value={web3ContextValue}>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/projects" component={ProjectsPage} />
+        <Route exact path="/projects" component={ProjectsPage} />
         <Route path="/mooze" component={MoozePage} />
+        <Route path="/projects/:addr" component={ProjectInfoPage} />
       </Switch>
     </Web3Context.Provider>
   );
