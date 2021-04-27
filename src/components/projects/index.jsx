@@ -15,7 +15,7 @@ const ProjectsContainer = () => (
         day={30}
       />
       <Card
-        name="成大資訊營"
+        name="成大資訊營-終局資戰"
         img="sample2"
         price={25020}
         target={63400}

@@ -16,13 +16,6 @@
   }
 }
 
-.projects-card-header {
-  width: 100%;
-  height: 2rem;
-  font-size: 1.2rem;
-  text-align: center;
-}
-
 .projects-card-img {
   @include neumorphism-concave-normal();
 
