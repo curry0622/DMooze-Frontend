@@ -5,8 +5,7 @@ import ProjectInfoContainer from '../components/projectInfo';
 
 const ProjectInfo = ({ match }) => (
   <GeneralLayout>
-    {match.params.addr}
-    <ProjectInfoContainer />
+    <ProjectInfoContainer addr={match.params.addr} />
   </GeneralLayout>
 );
 
