@@ -22,7 +22,21 @@ const ProjectInfoContainer = ({ addr }) => (
         src={`${process.env.PUBLIC_URL}/projectsPage/sample3.png`}
       />
     </div>
-    <div className={classNames('project-info-text-container')}>right</div>
+    <div className={classNames('project-info-text-container')}>
+      <div className={classNames('project-info-text-name')}>
+        成大資訊營-終局資戰
+      </div>
+      <div className={classNames('project-info-text-item-container')}>
+        <span className="label">擁有者</span>
+        <span className="name">張凱傑 KJay</span>
+      </div>
+      <div className={classNames('project-info-text-item-container')}>
+        <span className="label">以太坊地址</span>
+        <a className="link" href={`https://etherscan.io/address/${addr}`}>
+          {`https://etherscan.io/address/${addr}`}
+        </a>
+      </div>
+    </div>
   </div>
 );
 
