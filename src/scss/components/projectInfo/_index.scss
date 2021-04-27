@@ -115,6 +115,28 @@
   }
 }
 
+.project-info-text-description-container {
+  width: 100%;
+  height: auto;
+
+  > .label {
+    margin-bottom: 1rem;
+    // border: red solid 1px;
+  }
+
+  > .content {
+    @include neumorphism-concave-normal();
+
+    margin-bottom: 3rem;
+    padding: 1rem;
+    width: 100%;
+    min-height: 90%;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    border-radius: 5px;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
