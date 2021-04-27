@@ -63,6 +63,58 @@
   }
 }
 
+.project-info-text-input-container {
+  @include flex(row, flex-start, center);
+
+  width: 70%;
+  font-size: 1rem;
+  // border: red solid 1px;
+
+  .eth {
+    // @include neumorphism-concave-normal();
+
+    margin-right: 20px;
+    padding: 5px 10px;
+    color: #edeae9;
+    background-color: #555;
+    // font-size: 1rem;
+    border-radius: 5px;
+  }
+
+  > input {
+    @include neumorphism-concave-normal();
+
+    margin-right: 20px;
+    padding: 5px;
+    width: 150px;
+    background-color: #edeae9;
+    border: 0;
+    border-radius: 5px;
+    outline: 0;
+  }
+
+  > .currency {
+    // font-size: 1rem;
+    margin-right: 20px;
+  }
+
+  > button {
+    @include flex(row, center, center);
+    @include neumorphism();
+
+    padding: 5px 20px;
+    // font-size: 1rem;
+    text-align: center;
+    border-radius: 5px;
+
+    > img {
+      margin-right: 10px;
+      height: 1.7rem;
+      object-fit: contain;
+    }
+  }
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }

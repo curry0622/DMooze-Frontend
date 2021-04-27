@@ -36,6 +36,21 @@ const ProjectInfoContainer = ({ addr }) => (
           {`https://etherscan.io/address/${addr}`}
         </a>
       </div>
+      <div className={classNames('project-info-text-item-container')}>
+        <span className="label">贊助</span>
+        <div className={classNames('project-info-text-input-container')}>
+          <span className="eth">ETH</span>
+          <input type="number" />
+          <span className="currency">NT$0</span>
+          <button type="button">
+            <img
+              alt="metamask"
+              src={`${process.env.PUBLIC_URL}/projectInfoPage/metamask.svg`}
+            />
+            發送
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 );
