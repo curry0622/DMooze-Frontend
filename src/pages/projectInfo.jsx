@@ -3,10 +3,16 @@ import React from 'react';
 import GeneralLayout from '../layouts/generalLayout';
 import ProjectInfoContainer from '../components/projectInfo';
 
-const ProjectInfo = ({ match }) => (
-  <GeneralLayout>
-    <ProjectInfoContainer addr={match.params.addr} />
-  </GeneralLayout>
-);
+const ProjectInfo = ({ match }) => {
+  const {
+    params: { addr },
+  } = match;
+
+  return (
+    <GeneralLayout>
+      <ProjectInfoContainer addr={addr} />
+    </GeneralLayout>
+  );
+};
 
 export default ProjectInfo;
