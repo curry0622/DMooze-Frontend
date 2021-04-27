@@ -60,7 +60,6 @@
 .projects-card-content-progress-value {
   @include neumorphism-concave-normal();
 
-  content: '';
   position: absolute;
   width: 100%;
   height: 100%;
