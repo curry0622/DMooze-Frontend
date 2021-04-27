@@ -1,0 +1,87 @@
+.projects-card-container {
+  @include flex(column, space-between, flex-start);
+  @include neumorphism-convex-normal();
+
+  cursor: pointer;
+  margin-bottom: 5rem;
+  padding: 1rem;
+  width: 25vw;
+  border-radius: 20px;
+  transition: all ease 0.3s;
+
+  &:hover {
+    @include neumorphism-convex-strong();
+
+    transform: scale(1.03);
+  }
+}
+
+.projects-card-img {
+  @include neumorphism-concave-normal();
+
+  padding: 5px;
+  width: calc(25vw - 2rem);
+  height: calc(25vw - 2rem);
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.projects-card-content-container {
+  @include flex(column, flex-start, flex-start);
+
+  padding: 0.5rem;
+  padding-bottom: 0;
+  width: 100%;
+  // border: red solid 1px;
+}
+
+.projects-card-content-name {
+  line-height: 3rem;
+  font-size: 1.5rem;
+  text-shadow: 1.5px 1.5px 2px rgba(0, 0, 0, 0.25),
+    -1.5px -1.5px 2px rgba(255, 255, 255, 1);
+}
+
+.projects-card-content-progress {
+  // @include neumorphism-convex-normal();
+
+  position: relative;
+  overflow: hidden;
+  margin: 15px 0;
+  width: 100%;
+  height: 5px;
+  // color: transparent;
+  background-color: #555;
+  // border: red solid 1px;
+  border-radius: 20px;
+}
+
+.projects-card-content-progress-value {
+  @include neumorphism-concave-normal();
+
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #edeae9;
+}
+
+.projects-card-content-info-container {
+  @include flex(row, space-between, center);
+
+  width: 100%;
+  // border: red solid 1px;
+}
+
+.projects-card-content-info-money {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  // border: red solid 1px;
+
+  > span {
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: #555 solid 1px;
+  }
+}
