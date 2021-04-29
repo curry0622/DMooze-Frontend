@@ -9,17 +9,27 @@ const ProjectInfoContainer = ({ addr }) => (
       <img
         className={classNames('project-info-image')}
         alt="project"
-        src={`${process.env.PUBLIC_URL}/projectsPage/sample2.png`}
+        src={`${process.env.PUBLIC_URL}/projectInfoPage/ncku-csie-sample0.png`}
       />
       <img
         className={classNames('project-info-image')}
         alt="project"
-        src={`${process.env.PUBLIC_URL}/projectsPage/sample1.png`}
+        src={`${process.env.PUBLIC_URL}/projectInfoPage/ncku-csie-sample1.png`}
       />
       <img
         className={classNames('project-info-image')}
         alt="project"
-        src={`${process.env.PUBLIC_URL}/projectsPage/sample3.png`}
+        src={`${process.env.PUBLIC_URL}/projectInfoPage/ncku-csie-sample2.png`}
+      />
+      <img
+        className={classNames('project-info-image')}
+        alt="project"
+        src={`${process.env.PUBLIC_URL}/projectInfoPage/ncku-csie-sample3.png`}
+      />
+      <img
+        className={classNames('project-info-image')}
+        alt="project"
+        src={`${process.env.PUBLIC_URL}/projectInfoPage/ncku-csie-sample4.png`}
       />
     </div>
     <div className={classNames('project-info-text-container')}>
@@ -32,11 +42,11 @@ const ProjectInfoContainer = ({ addr }) => (
         <span>進度 39%</span>
       </div>
       <div className={classNames('project-info-text-item-container')}>
-        <span className={classNames('label')}>擁有者</span>
+        <span className={classNames('label')}>。擁有者</span>
         <span className={classNames('value')}>KJay</span>
       </div>
       <div className={classNames('project-info-text-item-container')}>
-        <span className={classNames('label')}>以太坊地址</span>
+        <span className={classNames('label')}>。以太坊地址</span>
         <a
           className={classNames('value', 'link')}
           href={`https://etherscan.io/address/${addr}`}
@@ -45,7 +55,7 @@ const ProjectInfoContainer = ({ addr }) => (
         </a>
       </div>
       <div className={classNames('project-info-text-item-container')}>
-        <span className="label">贊助</span>
+        <span className="label">。贊助</span>
         <div
           className={classNames('project-info-text-input-container', 'value')}
         >
@@ -62,7 +72,7 @@ const ProjectInfoContainer = ({ addr }) => (
         </div>
       </div>
       <div className={classNames('project-info-text-item-container')}>
-        <span className="label">進度</span>
+        <span className="label">。進度</span>
         <span>$25020 / $234200</span>
         <span className={classNames('target')}>(目標金額)</span>
       </div>
