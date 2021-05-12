@@ -11,6 +11,27 @@ import {
 import * as Yup from 'yup';
 import classNames from 'classnames';
 
+const StyledTextField = withStyles({
+  root: {
+    '& label.Mui-focused': {
+      color: '#555',
+      fontWeight: 'bold',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#555',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {},
+      '&:hover fieldset': {
+        borderColor: '#555',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#555',
+      },
+    },
+  },
+})(TextField);
+
 const MoozeForm = () => {
   const initialValues = {
     name: '',
@@ -51,27 +72,6 @@ const MoozeForm = () => {
       fontFamily: 'Noto Serif TC, serif',
     },
   });
-
-  const StyledTextField = withStyles({
-    root: {
-      '& label.Mui-focused': {
-        color: '#555',
-        fontWeight: 'bold',
-      },
-      '& .MuiInput-underline:after': {
-        borderBottomColor: '#555',
-      },
-      '& .MuiOutlinedInput-root': {
-        '& fieldset': {},
-        '&:hover fieldset': {
-          borderColor: '#555',
-        },
-        '&.Mui-focused fieldset': {
-          borderColor: '#555',
-        },
-      },
-    },
-  })(TextField);
 
   return (
     <form
