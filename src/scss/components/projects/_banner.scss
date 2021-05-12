@@ -4,7 +4,6 @@
   padding: 4rem 0;
   width: 100%;
   height: 700px;
-  // border: green solid 1px;
 }
 
 .projects-banner-left-container {
@@ -12,17 +11,12 @@
 
   margin-bottom: 7rem;
   width: 40%;
-  // height: 100%;
-  // border: red solid 1px;
 }
 
 .projects-banner-right-container {
   @include flex(column, center, center);
 
-  // margin-top: 5rem;
   width: 60%;
-  // height: 100%;
-  // border: red solid 1px;
 }
 
 .projects-banner-title {
@@ -40,7 +34,6 @@
 .project-banner-right-img-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  // margin-top: 10%;
   width: 80%;
 }
 
