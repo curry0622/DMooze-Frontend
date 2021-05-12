@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-alert */
 /* eslint-disable react/button-has-type */
 import React from 'react';
@@ -7,7 +8,10 @@ import {
   withStyles,
   ThemeProvider,
   TextField,
+  Button,
+  IconButton,
 } from '@material-ui/core';
+import Image from '@material-ui/icons/Image';
 import * as Yup from 'yup';
 import classNames from 'classnames';
 
@@ -149,9 +153,29 @@ const MoozeForm = () => {
           variant="outlined"
           type="text"
           size="small"
+          rowsMax="3"
           fullWidth
           multiline
         />
+        <label htmlFor="upload">
+          <input
+            id="upload"
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              console.log(e.target.files);
+            }}
+            style={{ display: 'none' }}
+            multiple
+          />
+          <Button variant="outlined" color="primary" component="span">
+            <Image />
+            上傳圖片
+          </Button>
+          {/* <IconButton variant="outlined" color="primary" component="span">
+            <Image />
+          </IconButton> */}
+        </label>
       </ThemeProvider>
       <div>
         <button type="submit" className={classNames('mooze-form-btn')}>

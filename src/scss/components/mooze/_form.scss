@@ -1,36 +1,25 @@
 .mooze-form-container {
   @include flex(column, space-evenly, center);
-  // @include neumorphism-convex-strong();
 
   padding: 0 10%;
   width: 70%;
   height: 85%;
   border: #ccc solid 1px;
   border-radius: 5%;
-
-  // > input,
-  // textarea {
-  //   @include neumorphism-concave-normal();
-
-  //   width: 100%;
-  //   height: 5%;
-  //   background-color: transparent;
-  //   border: 0;
-  //   border-radius: 10px;
-  //   outline: 0;
-  //   text-shadow: none;
-  // }
 }
 
 .mooze-form-title {
   font-size: 1.5rem;
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25),
-    -2px -2px 2px rgba(255, 255, 255, 1);
+}
+
+.mooze-form-file-upload {
+  width: 100%;
+  border: red solid 1px;
 }
 
 .mooze-form-btn {
   @include neumorphism();
 
-  margin: 10px;
+  margin: 10px 20px;
   padding: 0.4rem 1.5rem;
 }
