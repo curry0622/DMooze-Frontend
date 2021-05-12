@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import Web3Context from '../../contexts/web3Context';
-import Form from './form';
+import MoozeForm from './form';
 
 const MoozeContainer = () => {
   // get web3 context
@@ -40,7 +40,7 @@ const MoozeContainer = () => {
       </div>
       <div className={classNames('mooze-right-container')}>
         {web3 !== undefined ? (
-          <Form />
+          <MoozeForm />
         ) : (
           <button
             className={classNames('mooze-metamask-btn')}
