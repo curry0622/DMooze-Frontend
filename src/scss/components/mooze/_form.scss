@@ -1,4 +1,4 @@
-.form-container {
+.mooze-form-container {
   @include flex(column, space-evenly, center);
   // @include neumorphism-convex-strong();
 
@@ -22,15 +22,15 @@
   // }
 }
 
-.form-title {
+.mooze-form-title {
   font-size: 1.5rem;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25),
     -2px -2px 2px rgba(255, 255, 255, 1);
 }
 
-.form-btn {
+.mooze-form-btn {
   @include neumorphism();
 
   margin: 10px;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 1.5rem;
 }
