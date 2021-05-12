@@ -1,12 +1,16 @@
 import React from 'react';
-import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-const Card = ({ name, img, price, target, day }) => {
+const Card = ({ addr, name, img, price, target, day }) => {
   const progress = ((price / target) * 100).toFixed(0);
 
   return (
-    <div className={classNames('projects-card-container')}>
+    <Link
+      className={classNames('projects-card-container')}
+      to={`/projects/${addr}`}
+    >
       <img
         className={classNames('projects-card-img')}
         alt="project"
@@ -30,11 +34,12 @@ const Card = ({ name, img, price, target, day }) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
 Card.propTypes = {
+  addr: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,

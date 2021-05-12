@@ -1,10 +1,10 @@
 import React from 'react';
-import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 const NavLink = ({ path, name, type }) => (
-  <Link to={path} className={classNames(`nav-link${type}`)}>
+  <Link className={classNames(`nav-link${type}`)} to={path}>
     {path === '/' ? (
       <img
         className={classNames('nav-logo')}
