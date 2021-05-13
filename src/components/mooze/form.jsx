@@ -3,6 +3,8 @@
 /* eslint-disable react/button-has-type */
 import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import classNames from 'classnames';
 import {
   createMuiTheme,
   withStyles,
@@ -10,9 +12,9 @@ import {
   TextField,
   Button,
 } from '@material-ui/core';
-import Image from '@material-ui/icons/Image';
-import * as Yup from 'yup';
-import classNames from 'classnames';
+import ReplayIcon from '@material-ui/icons/Replay';
+import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
+import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
 
 const StyledTextField = withStyles({
   root: {
@@ -89,12 +91,6 @@ const MoozeForm = () => {
       fontFamily: 'Noto Serif TC, serif',
     },
   });
-
-  useEffect(() => {
-    imgArr.forEach((img, i) => {
-      console.log(i);
-    });
-  }, [imgArr]);
 
   return (
     <form
@@ -176,6 +172,8 @@ const MoozeForm = () => {
           fullWidth
           multiline
         />
+      </ThemeProvider>
+      <div className={classNames('mooze-form-btn-container')}>
         <label className={classNames('mooze-form-upload')} htmlFor="upload">
           <input
             id="upload"
@@ -203,21 +201,27 @@ const MoozeForm = () => {
             variant="outlined"
             color="primary"
             component="span"
-            startIcon={<Image />}
+            startIcon={<ImageOutlinedIcon />}
           >
-            上傳圖片
+            圖片 {cnt !== 0 && cnt}
           </StyledButton>
-          {cnt !== 0 ? ` 已上傳${cnt}個檔案` : ''}
         </label>
-        {/* {`已上傳${Object.values(imgArr).length}個檔案`} */}
-      </ThemeProvider>
-      <div>
-        <button type="submit" className={classNames('mooze-form-btn')}>
+        <StyledButton
+          type="submit"
+          variant="outlined"
+          color="primary"
+          startIcon={<ArrowUpwardOutlinedIcon />}
+        >
           提交
-        </button>
-        <button type="reset" className={classNames('mooze-form-btn')}>
+        </StyledButton>
+        <StyledButton
+          type="reset"
+          variant="outlined"
+          color="primary"
+          startIcon={<ReplayIcon />}
+        >
           重設
-        </button>
+        </StyledButton>
       </div>
     </form>
   );

@@ -1,7 +1,7 @@
 .mooze-form-container {
   @include flex(column, space-evenly, center);
 
-  padding: 0 10%;
+  padding: 10px 10%;
   width: 70%;
   height: 85%;
   border: #ccc solid 1px;
@@ -9,12 +9,11 @@
 }
 
 .mooze-form-title {
-  padding: 5px 0;
   font-size: 1.7rem;
 }
 
-.mooze-form-upload {
-  @include flex(row, space-evenly, center);
+.mooze-form-btn-container {
+  @include flex(row, space-between, center);
 
   width: 100%;
 }
@@ -22,6 +21,5 @@
 .mooze-form-btn {
   @include neumorphism();
 
-  margin: 0 20px;
   padding: 0.4rem 1.5rem;
 }
