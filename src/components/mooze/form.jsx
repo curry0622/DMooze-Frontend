@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
 /* eslint-disable react/button-has-type */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import {
   createMuiTheme,
@@ -47,6 +47,9 @@ const StyledButton = withStyles({
 })(Button);
 
 const MoozeForm = () => {
+  const [imgArr, setImgArr] = useState([]);
+  const [cnt, setCnt] = useState(0);
+
   const initialValues = {
     name: '',
     owner: '',
@@ -86,6 +89,12 @@ const MoozeForm = () => {
       fontFamily: 'Noto Serif TC, serif',
     },
   });
+
+  useEffect(() => {
+    imgArr.forEach((img, i) => {
+      console.log(i);
+    });
+  }, [imgArr]);
 
   return (
     <form
@@ -167,13 +176,25 @@ const MoozeForm = () => {
           fullWidth
           multiline
         />
-        <label htmlFor="upload">
+        <label className={classNames('mooze-form-upload')} htmlFor="upload">
           <input
             id="upload"
             type="file"
             accept="image/*"
             onChange={(e) => {
-              console.log(e.target.files);
+              const tmp = [];
+              const images = Object.values(e.target.files);
+              let imgCnt = 0;
+              images.forEach((img) => {
+                imgCnt += 1;
+                const reader = new FileReader();
+                reader.readAsDataURL(img);
+                reader.onload = (d) => {
+                  tmp.push(d.target.result);
+                };
+              });
+              setImgArr(tmp);
+              setCnt(imgCnt);
             }}
             style={{ display: 'none' }}
             multiple
@@ -186,7 +207,9 @@ const MoozeForm = () => {
           >
             上傳圖片
           </StyledButton>
+          {cnt !== 0 ? ` 已上傳${cnt}個檔案` : ''}
         </label>
+        {/* {`已上傳${Object.values(imgArr).length}個檔案`} */}
       </ThemeProvider>
       <div>
         <button type="submit" className={classNames('mooze-form-btn')}>
