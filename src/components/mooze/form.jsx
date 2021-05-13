@@ -9,7 +9,6 @@ import {
   ThemeProvider,
   TextField,
   Button,
-  IconButton,
 } from '@material-ui/core';
 import Image from '@material-ui/icons/Image';
 import * as Yup from 'yup';
@@ -35,6 +34,17 @@ const StyledTextField = withStyles({
     },
   },
 })(TextField);
+
+const StyledButton = withStyles({
+  root: {
+    borderColor: '#aaa',
+    backgroundColor: 'transparent',
+    '&:hover': {
+      borderColor: '#555',
+      backgroundColor: 'transparent',
+    },
+  },
+})(Button);
 
 const MoozeForm = () => {
   const initialValues = {
@@ -111,7 +121,7 @@ const MoozeForm = () => {
         />
         <StyledTextField
           name="target"
-          label="目標金額"
+          label="目標金額 (ETH)"
           value={formik.values.target}
           onChange={formik.handleChange}
           error={formik.touched.owner && Boolean(formik.errors.owner)}
@@ -168,13 +178,14 @@ const MoozeForm = () => {
             style={{ display: 'none' }}
             multiple
           />
-          <Button variant="outlined" color="primary" component="span">
-            <Image />
+          <StyledButton
+            variant="outlined"
+            color="primary"
+            component="span"
+            startIcon={<Image />}
+          >
             上傳圖片
-          </Button>
-          {/* <IconButton variant="outlined" color="primary" component="span">
-            <Image />
-          </IconButton> */}
+          </StyledButton>
         </label>
       </ThemeProvider>
       <div>
