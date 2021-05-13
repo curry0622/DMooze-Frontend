@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
 /* eslint-disable react/button-has-type */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import classNames from 'classnames';
@@ -15,6 +15,13 @@ import {
 import ReplayIcon from '@material-ui/icons/Replay';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
+import Web3Context from '../../contexts/web3Context';
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'Noto Serif TC, serif',
+  },
+});
 
 const StyledTextField = withStyles({
   root: {
@@ -34,6 +41,9 @@ const StyledTextField = withStyles({
         borderColor: '#555',
       },
     },
+    '& .MuiFormHelperText-root': {
+      marginTop: 0,
+    },
   },
 })(TextField);
 
@@ -49,6 +59,14 @@ const StyledButton = withStyles({
 })(Button);
 
 const MoozeForm = () => {
+  const {
+    web3,
+    getWeb3Instance,
+    accounts,
+    getAccountsInstance,
+    contract,
+    getContractInstance,
+  } = useContext(Web3Context);
   const [imgArr, setImgArr] = useState([]);
   const [cnt, setCnt] = useState(0);
 
@@ -65,19 +83,24 @@ const MoozeForm = () => {
     name: Yup.string().required('必填'),
     owner: Yup.string().required('必填'),
     target: Yup.number('格式錯誤').required('必填'),
-    email: Yup.string().email('格式錯誤').required('必填'),
+    email: Yup.string().email('格式錯誤'),
     phone: Yup.string()
-      .required('必填')
       .matches(/^[0-9]+$/, '格式錯誤')
       .min(10, '格式錯誤')
       .max(10, '格式錯誤'),
   });
 
-  const onSubmit = (values, actions) => {
-    alert(JSON.stringify(values));
+  const onSubmit = async (values, actions) => {
+    if (!web3) {
+      getWeb3Instance();
+      return;
+    }
     actions.resetForm({
       values: initialValues,
     });
+    alert(JSON.stringify({ ...values, address: accounts[0], images: imgArr }));
+    // upload to smart contract
+    await contract.methods.set(8989989).send({ from: accounts[0] });
   };
 
   const formik = useFormik({
@@ -86,11 +109,12 @@ const MoozeForm = () => {
     validationSchema,
   });
 
-  const theme = createMuiTheme({
-    typography: {
-      fontFamily: 'Noto Serif TC, serif',
-    },
-  });
+  useEffect(() => {
+    if (web3 !== undefined) {
+      getAccountsInstance();
+      getContractInstance();
+    }
+  }, [web3]);
 
   return (
     <form
