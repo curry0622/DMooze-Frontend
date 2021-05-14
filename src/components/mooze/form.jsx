@@ -16,6 +16,7 @@ import ReplayIcon from '@material-ui/icons/Replay';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
 import Web3Context from '../../contexts/web3Context';
+import axios from '../../api/axios';
 
 const theme = createMuiTheme({
   typography: {
@@ -103,6 +104,22 @@ const MoozeForm = () => {
     await contract.methods.set(8989989).send({ from: accounts[0] });
   };
 
+  const onUpload = (e) => {
+    const tmp = [];
+    const images = Object.values(e.target.files);
+    let imgCnt = 0;
+    images.forEach((img) => {
+      imgCnt += 1;
+      const reader = new FileReader();
+      reader.readAsDataURL(img);
+      reader.onload = (d) => {
+        tmp.push(d.target.result);
+      };
+    });
+    setImgArr(tmp);
+    setCnt(imgCnt);
+  };
+
   const formik = useFormik({
     initialValues,
     onSubmit,
@@ -115,6 +132,35 @@ const MoozeForm = () => {
       getContractInstance();
     }
   }, [web3]);
+
+  const testApi = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_ENDPOINT}/proposal?useage=get_proposal&page=1`,
+      {
+        method: 'GET',
+        mode: 'cors',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      },
+    );
+
+    if (response.status === 200) {
+      const tmp = await response.json();
+      console.log('success', tmp);
+    } else {
+      console.log('failed');
+    }
+  };
+
+  const testAxios = async () => {
+    try {
+      const response = await axios.post('/proposal');
+      console.log(response.data);
+    } catch (e) {
+      alert(e);
+    }
+  };
 
   return (
     <form
@@ -203,21 +249,7 @@ const MoozeForm = () => {
             id="upload"
             type="file"
             accept="image/*"
-            onChange={(e) => {
-              const tmp = [];
-              const images = Object.values(e.target.files);
-              let imgCnt = 0;
-              images.forEach((img) => {
-                imgCnt += 1;
-                const reader = new FileReader();
-                reader.readAsDataURL(img);
-                reader.onload = (d) => {
-                  tmp.push(d.target.result);
-                };
-              });
-              setImgArr(tmp);
-              setCnt(imgCnt);
-            }}
+            onChange={onUpload}
             style={{ display: 'none' }}
             multiple
           />
@@ -243,6 +275,7 @@ const MoozeForm = () => {
           variant="outlined"
           color="primary"
           startIcon={<ReplayIcon />}
+          onClick={testAxios}
         >
           重設
         </StyledButton>
