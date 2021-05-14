@@ -2,18 +2,16 @@ import axios from './axios';
 
 const createProject = async (success, id, body) => {
   if (success) {
-    // successfully upload the project to ethernet
+    // successfully upload the project to ethernet -> call success api
     try {
-      axios.put(`/proposal?proposal_id=${id}`, body);
-      console.log('success');
+      await axios.put(`/proposal?proposal_id=${id}`, body);
     } catch (e) {
       alert(e);
     }
   } else {
-    // failed to upload the project to ethernet
+    // failed to upload the project to ethernet -> call failed api
     try {
-      axios.delete(`/proposal?proposal_id=${id}`);
-      console.log('success');
+      await axios.delete(`/proposal?proposal_id=${id}`);
     } catch (e) {
       alert(e);
     }
