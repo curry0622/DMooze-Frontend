@@ -4,7 +4,7 @@
   padding: 3rem 0;
   width: 75%;
   min-height: calc(100% - 80px);
-  color: #555;
+  color: $text-color;
 }
 
 .project-info-images-container {
@@ -128,7 +128,7 @@
 
     padding: 2px 7px;
     text-align: center;
-    color: #555;
+    color: $text-color;
     border-radius: 5px;
 
     > img {
