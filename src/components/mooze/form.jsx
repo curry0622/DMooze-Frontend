@@ -15,8 +15,10 @@ import {
 import ReplayIcon from '@material-ui/icons/Replay';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
+
 import Web3Context from '../../contexts/web3Context';
-import axios from '../../api/axios';
+import getUniqueId from '../../apis/getUniqueId';
+import createProject from '../../apis/createProject';
 
 const theme = createMuiTheme({
   typography: {
@@ -96,12 +98,25 @@ const MoozeForm = () => {
       getWeb3Instance();
       return;
     }
+    const id = await getUniqueId();
+    try {
+      await contract.methods.set(8989989).send({ from: accounts[0] });
+      createProject(true, id, {
+        owner_addr: accounts[0],
+        target_price: values.target,
+        project_description: values.description,
+        project_name: values.name,
+        representative: values.owner,
+        email: values.email,
+        phone: values.phone,
+      });
+    } catch (e) {
+      alert(e.message);
+      createProject(false, id, {});
+    }
     actions.resetForm({
       values: initialValues,
     });
-    alert(JSON.stringify({ ...values, address: accounts[0], images: imgArr }));
-    // upload to smart contract
-    await contract.methods.set(8989989).send({ from: accounts[0] });
   };
 
   const onUpload = (e) => {
@@ -132,35 +147,6 @@ const MoozeForm = () => {
       getContractInstance();
     }
   }, [web3]);
-
-  const testApi = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_ENDPOINT}/proposal?useage=get_proposal&page=1`,
-      {
-        method: 'GET',
-        mode: 'cors',
-        headers: new Headers({
-          'Content-Type': 'application/json',
-        }),
-      },
-    );
-
-    if (response.status === 200) {
-      const tmp = await response.json();
-      console.log('success', tmp);
-    } else {
-      console.log('failed');
-    }
-  };
-
-  const testAxios = async () => {
-    try {
-      const response = await axios.post('/proposal');
-      console.log(response.data);
-    } catch (e) {
-      alert(e);
-    }
-  };
 
   return (
     <form
@@ -275,7 +261,6 @@ const MoozeForm = () => {
           variant="outlined"
           color="primary"
           startIcon={<ReplayIcon />}
-          onClick={testAxios}
         >
           重設
         </StyledButton>
