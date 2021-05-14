@@ -2,12 +2,13 @@
   @include flex(column, space-between, center);
   @include neumorphism-convex-normal();
 
-  cursor: pointer;
   padding: 1rem;
   width: 100%;
   max-height: 300px;
+  color: #555;
   border-radius: 20px;
   transition: max-height ease-in 1.5s;
+  cursor: pointer;
 
   &:hover {
     @include neumorphism-convex-strong();

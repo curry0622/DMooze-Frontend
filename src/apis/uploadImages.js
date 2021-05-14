@@ -1,8 +1,12 @@
-import axios from './axios';
+import axios from 'axios';
 
 const uploadImages = async (id, body) => {
   try {
-    await axios.put(`/proposal?proposal_id=${id}`, body);
+    const api = axios.create({
+      withCredentials: false,
+      baseURL: `${process.env.REACT_APP_BACKEND_ENDPOINT}`,
+    });
+    await api.put(`/image?proposal_id=${id}`, body);
   } catch (e) {
     alert(e);
   }

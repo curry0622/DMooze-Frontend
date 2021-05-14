@@ -12,7 +12,7 @@ import {
   TextField,
   Button,
   CircularProgress,
-  LinearProgress,
+  Snackbar,
 } from '@material-ui/core';
 import ReplayIcon from '@material-ui/icons/Replay';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
@@ -21,6 +21,8 @@ import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
 import Web3Context from '../../contexts/web3Context';
 import getUniqueId from '../../apis/getUniqueId';
 import createProject from '../../apis/createProject';
+import uploadImages from '../../apis/uploadImages';
+import getProjectById from '../../apis/getProjectById';
 
 const theme = createMuiTheme({
   typography: {
@@ -54,6 +56,7 @@ const StyledTextField = withStyles({
 
 const StyledButton = withStyles({
   root: {
+    color: '#555',
     borderColor: '#aaa',
     backgroundColor: 'transparent',
     '&:hover': {
@@ -72,7 +75,7 @@ const MoozeForm = () => {
     contract,
     getContractInstance,
   } = useContext(Web3Context);
-  const [imgArr, setImgArr] = useState([]);
+  const [imgArr, setImgArr] = useState(new FormData());
   const [cnt, setCnt] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -96,6 +99,11 @@ const MoozeForm = () => {
       .max(10, '格式錯誤'),
   });
 
+  const resetImages = () => {
+    setImgArr([]);
+    setCnt(0);
+  };
+
   const onSubmit = async (values, actions) => {
     if (!web3) {
       getWeb3Instance();
@@ -114,6 +122,7 @@ const MoozeForm = () => {
         email: values.email,
         phone: values.phone,
       });
+      uploadImages(id, imgArr);
     } catch (e) {
       alert(e.message);
       createProject(false, id, {});
@@ -121,22 +130,17 @@ const MoozeForm = () => {
     actions.resetForm({
       values: initialValues,
     });
+    resetImages();
     setIsLoading(false);
   };
 
   const onUpload = (e) => {
-    const tmp = [];
     const images = Object.values(e.target.files);
     let imgCnt = 0;
     images.forEach((img) => {
       imgCnt += 1;
-      const reader = new FileReader();
-      reader.readAsDataURL(img);
-      reader.onload = (d) => {
-        tmp.push(d.target.result);
-      };
+      imgArr.append('image_files', img);
     });
-    setImgArr(tmp);
     setCnt(imgCnt);
   };
 
@@ -158,11 +162,9 @@ const MoozeForm = () => {
       className={classNames('mooze-form-container')}
       onSubmit={formik.handleSubmit}
       onReset={formik.handleReset}
+      disabled={isLoading}
     >
-      <div className={classNames('mooze-form-title')}>
-        {isLoading ? '資料上鏈中 ' : '開始提案'}
-        {isLoading && <CircularProgress size="15px" />}
-      </div>
+      <div className={classNames('mooze-form-title')}>開始提案</div>
       <ThemeProvider theme={theme}>
         <StyledTextField
           name="name"
@@ -260,7 +262,6 @@ const MoozeForm = () => {
           type="submit"
           variant="outlined"
           color="primary"
-          disabled={isLoading}
           startIcon={<ArrowUpwardOutlinedIcon />}
         >
           提交
@@ -269,16 +270,18 @@ const MoozeForm = () => {
           type="reset"
           variant="outlined"
           color="primary"
-          disabled={isLoading}
           startIcon={<ReplayIcon />}
-          onClick={() => {
-            setImgArr([]);
-            setCnt(0);
-          }}
+          onClick={resetImages}
         >
           重設
         </StyledButton>
       </div>
+      <Snackbar
+        open={isLoading}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        message="資料上鏈中..."
+        action={<CircularProgress color="inherit" size="18px" />}
+      />
     </form>
   );
 };

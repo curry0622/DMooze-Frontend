@@ -10,6 +10,11 @@ const MoozeContainer = () => (
         alt="DMooze"
         src={`${process.env.PUBLIC_URL}/moozePage/bg.png`}
       />
+      <img
+        className={classNames('mooze-banner-img')}
+        alt="Girl"
+        src={`${process.env.PUBLIC_URL}/moozePage/girl.png`}
+      />
     </div>
     <div className={classNames('mooze-right-container')}>
       <MoozeForm />
