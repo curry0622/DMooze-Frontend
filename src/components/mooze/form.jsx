@@ -11,6 +11,8 @@ import {
   ThemeProvider,
   TextField,
   Button,
+  CircularProgress,
+  LinearProgress,
 } from '@material-ui/core';
 import ReplayIcon from '@material-ui/icons/Replay';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
@@ -72,6 +74,7 @@ const MoozeForm = () => {
   } = useContext(Web3Context);
   const [imgArr, setImgArr] = useState([]);
   const [cnt, setCnt] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const initialValues = {
     name: '',
@@ -98,6 +101,7 @@ const MoozeForm = () => {
       getWeb3Instance();
       return;
     }
+    setIsLoading(true);
     const id = await getUniqueId();
     try {
       await contract.methods.set(8989989).send({ from: accounts[0] });
@@ -117,6 +121,7 @@ const MoozeForm = () => {
     actions.resetForm({
       values: initialValues,
     });
+    setIsLoading(false);
   };
 
   const onUpload = (e) => {
@@ -154,7 +159,10 @@ const MoozeForm = () => {
       onSubmit={formik.handleSubmit}
       onReset={formik.handleReset}
     >
-      <div className={classNames('mooze-form-title')}>開始提案</div>
+      <div className={classNames('mooze-form-title')}>
+        {isLoading ? '資料上鏈中 ' : '開始提案'}
+        {isLoading && <CircularProgress size="15px" />}
+      </div>
       <ThemeProvider theme={theme}>
         <StyledTextField
           name="name"
@@ -252,6 +260,7 @@ const MoozeForm = () => {
           type="submit"
           variant="outlined"
           color="primary"
+          disabled={isLoading}
           startIcon={<ArrowUpwardOutlinedIcon />}
         >
           提交
@@ -260,7 +269,12 @@ const MoozeForm = () => {
           type="reset"
           variant="outlined"
           color="primary"
+          disabled={isLoading}
           startIcon={<ReplayIcon />}
+          onClick={() => {
+            setImgArr([]);
+            setCnt(0);
+          }}
         >
           重設
         </StyledButton>

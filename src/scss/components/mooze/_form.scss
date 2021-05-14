@@ -14,7 +14,7 @@
 }
 
 .mooze-form-btn-container {
-  @include flex(row, space-between, center);
+  @include flex(row, space-evenly, center);
 
   width: 100%;
 }
