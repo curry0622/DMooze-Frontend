@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const Card = ({ addr, name, img, price, target, day }) => {
+const Card = ({ id, name, img, price, target, day }) => {
   const progress = ((price / target) * 100).toFixed(0);
 
   return (
     <Link
       className={classNames('projects-card-container')}
-      to={`/projects/${addr}`}
+      to={`/projects/${id}`}
     >
       <img
         className={classNames('projects-card-img')}
         alt="project"
-        src={`${process.env.PUBLIC_URL}/projectsPage/${img}.png`}
+        src={img}
       />
       <div className={classNames('projects-card-content-container')}>
         <div className={classNames('projects-card-content-name')}>{name}</div>
@@ -39,7 +39,7 @@ const Card = ({ addr, name, img, price, target, day }) => {
 };
 
 Card.propTypes = {
-  addr: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
