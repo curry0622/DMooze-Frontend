@@ -8,6 +8,7 @@ import { Snackbar, CircularProgress } from '@material-ui/core';
 import Web3Context from '../../contexts/web3Context';
 import getProjectById from '../../apis/getProjectById';
 import postTxnRecord from '../../apis/postTxnRecord';
+import getEth2Twd from '../../utils/getEth2Twd';
 
 const ProjectInfoContainer = ({ id }) => {
   const {
@@ -20,6 +21,7 @@ const ProjectInfoContainer = ({ id }) => {
   } = useContext(Web3Context);
   const [info, setInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [exchangeRate, setExchangeRate] = useState(0);
 
   const mapImages = info.img_url
     ? info.img_url.map((img) => (
@@ -51,6 +53,7 @@ const ProjectInfoContainer = ({ id }) => {
 
   useEffect(async () => {
     setInfo(await getProjectById(id));
+    setExchangeRate(await getEth2Twd());
   }, []);
 
   useEffect(async () => {
@@ -71,7 +74,7 @@ const ProjectInfoContainer = ({ id }) => {
         </div>
         <div className={classNames('project-info-text-name')}>
           {info.project_name}
-          <span>剩餘21天</span>
+          <span>剩餘 21天</span>
           <span>進度 {progress}%</span>
         </div>
         <div className={classNames('project-info-text-item-container')}>
