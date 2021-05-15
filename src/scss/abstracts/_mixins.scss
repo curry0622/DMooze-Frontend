@@ -26,6 +26,18 @@
       inset -2px -2px 4px rgba(255, 255, 255, 1);
     text-shadow: none;
   }
+
+  &:disabled {
+    cursor: default;
+    color: #707070;
+    border: #ccc solid 1px;
+    box-shadow: none;
+    text-shadow: none;
+
+    > img {
+      filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+    }
+  }
 }
 
 // neumorphism concave 凹

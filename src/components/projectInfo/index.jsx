@@ -22,6 +22,7 @@ const ProjectInfoContainer = ({ id }) => {
   const [info, setInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [exchangeRate, setExchangeRate] = useState(0);
+  const [eth, setEth] = useState(0);
 
   const mapImages = info.img_url
     ? info.img_url.map((img) => (
@@ -43,7 +44,7 @@ const ProjectInfoContainer = ({ id }) => {
     }
     setIsLoading(true);
     try {
-      await contract.methods.set(8989989).send({ from: accounts[0] });
+      await contract.methods.set(eth).send({ from: accounts[0] });
       await postTxnRecord();
     } catch (e) {
       alert(e.message);
@@ -98,9 +99,16 @@ const ProjectInfoContainer = ({ id }) => {
             className={classNames('project-info-text-input-container', 'value')}
           >
             <span className={classNames('eth')}>ETH</span>
-            <input type="number" />
-            <span className={classNames('currency')}>NT$0</span>
-            <button type="button" onClick={onClickSponsor}>
+            <input
+              type="number"
+              step="0.0001"
+              value={eth}
+              onChange={(e) => setEth(e.target.value)}
+            />
+            <span className={classNames('currency')}>
+              NT${(exchangeRate * eth).toFixed(0)}
+            </span>
+            <button type="button" onClick={onClickSponsor} disabled={isLoading}>
               <img
                 alt="metamask"
                 src={`${process.env.PUBLIC_URL}/projectInfoPage/metamask.svg`}
