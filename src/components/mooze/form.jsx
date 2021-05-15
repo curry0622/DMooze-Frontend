@@ -22,7 +22,6 @@ import Web3Context from '../../contexts/web3Context';
 import getUniqueId from '../../apis/getUniqueId';
 import createProject from '../../apis/createProject';
 import uploadImages from '../../apis/uploadImages';
-import getProjectById from '../../apis/getProjectById';
 
 const theme = createMuiTheme({
   typography: {
@@ -164,7 +163,7 @@ const MoozeForm = () => {
       onReset={formik.handleReset}
       disabled={isLoading}
     >
-      <div className={classNames('mooze-form-title')}>開始提案</div>
+      <div className={classNames('mooze-form-title')}>專案資訊</div>
       <ThemeProvider theme={theme}>
         <StyledTextField
           name="name"
