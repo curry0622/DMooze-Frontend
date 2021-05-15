@@ -13,6 +13,7 @@ const ProjectInfoContainer = ({ id }) => {
   const mapImages = info.img_url
     ? info.img_url.map((img) => (
         <img
+          key={img}
           className={classNames('project-info-image')}
           alt="project"
           src={img}
@@ -26,31 +27,6 @@ const ProjectInfoContainer = ({ id }) => {
     <div className={classNames('project-info-container')}>
       <div className={classNames('project-info-images-container')}>
         {mapImages}
-        {/* <img
-          className={classNames('project-info-image')}
-          alt="project"
-          src={`${process.env.PUBLIC_URL}/projectInfoPage/ncku-csie-sample0.png`}
-        />
-        <img
-          className={classNames('project-info-image')}
-          alt="project"
-          src={`${process.env.PUBLIC_URL}/projectInfoPage/ncku-csie-sample1.png`}
-        />
-        <img
-          className={classNames('project-info-image')}
-          alt="project"
-          src={`${process.env.PUBLIC_URL}/projectInfoPage/ncku-csie-sample2.png`}
-        />
-        <img
-          className={classNames('project-info-image')}
-          alt="project"
-          src={`${process.env.PUBLIC_URL}/projectInfoPage/ncku-csie-sample3.png`}
-        />
-        <img
-          className={classNames('project-info-image')}
-          alt="project"
-          src={`${process.env.PUBLIC_URL}/projectInfoPage/ncku-csie-sample4.png`}
-        /> */}
       </div>
       <div className={classNames('project-info-text-container')}>
         <div className={classNames('project-info-text-progress-container')}>
