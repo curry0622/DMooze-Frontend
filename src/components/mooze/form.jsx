@@ -56,12 +56,6 @@ const StyledTextField = withStyles({
 const StyledButton = withStyles({
   root: {
     color: '#555',
-    borderColor: '#aaa',
-    backgroundColor: 'transparent',
-    '&:hover': {
-      borderColor: '#555',
-      backgroundColor: 'transparent',
-    },
   },
 })(Button);
 
@@ -250,7 +244,6 @@ const MoozeForm = () => {
           />
           <StyledButton
             variant="outlined"
-            color="primary"
             component="span"
             startIcon={<ImageOutlinedIcon />}
           >
@@ -260,7 +253,6 @@ const MoozeForm = () => {
         <StyledButton
           type="submit"
           variant="outlined"
-          color="primary"
           startIcon={<ArrowUpwardOutlinedIcon />}
         >
           提交
@@ -268,7 +260,6 @@ const MoozeForm = () => {
         <StyledButton
           type="reset"
           variant="outlined"
-          color="primary"
           startIcon={<ReplayIcon />}
           onClick={resetImages}
         >

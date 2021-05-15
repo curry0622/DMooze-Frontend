@@ -125,7 +125,7 @@
 
   > button {
     @include flex(row, center, center);
-    @include neumorphism();
+    @include neumorphism-btn();
 
     padding: 2px 7px;
     text-align: center;

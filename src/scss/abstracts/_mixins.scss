@@ -6,7 +6,7 @@
   align-items: $align-items;
 }
 
-@mixin neumorphism {
+@mixin neumorphism-btn {
   background-color: transparent;
   border: 0;
   border-radius: 5px;
@@ -35,7 +35,7 @@
     text-shadow: none;
 
     > img {
-      filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+      filter: grayscale(1);
     }
   }
 }

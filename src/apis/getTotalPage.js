@@ -1,6 +1,6 @@
 import axios from './axios';
 
-const getPageNum = async () => {
+const getTotalPage = async () => {
   try {
     const response = await axios.get('/proposal?usage=get_page_number');
     return response.data;
@@ -9,4 +9,4 @@ const getPageNum = async () => {
   }
 };
 
-export default getPageNum;
+export default getTotalPage;
