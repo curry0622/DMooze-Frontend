@@ -5,12 +5,12 @@ import ProjectInfoContainer from '../components/projectInfo';
 
 const ProjectInfo = ({ match }) => {
   const {
-    params: { addr },
+    params: { id },
   } = match;
 
   return (
     <GeneralLayout>
-      <ProjectInfoContainer addr={addr} />
+      <ProjectInfoContainer id={id} />
     </GeneralLayout>
   );
 };
