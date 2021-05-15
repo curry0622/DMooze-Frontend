@@ -2,12 +2,13 @@
   @include flex(column, space-between, flex-start);
   @include neumorphism-convex-normal();
 
-  cursor: pointer;
   margin-bottom: 5rem;
   padding: 1rem;
   width: 25vw;
+  color: $text-color;
   border-radius: 20px;
   transition: all ease 0.3s;
+  cursor: pointer;
 
   &:hover {
     @include neumorphism-convex-strong();

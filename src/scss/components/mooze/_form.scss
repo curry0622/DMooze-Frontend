@@ -1,21 +1,27 @@
-.form-container {
+.mooze-form-container {
   @include flex(column, space-evenly, center);
-  @include neumorphism-convex-strong();
 
-  width: 70%;
+  padding: 10px 10%;
+  padding-top: 0;
+  width: 85%;
   height: 85%;
+  color: $text-color;
+  border: #ccc solid 1px;
   border-radius: 5%;
+}
 
-  > input,
-  textarea {
-    @include neumorphism-concave-normal();
+.mooze-form-title {
+  font-size: 1.7rem;
+}
 
-    width: 70%;
-    height: 5%;
-    background-color: transparent;
-    border: 0;
-    border-radius: 10px;
-    outline: 0;
-    text-shadow: none;
-  }
+.mooze-form-btn-container {
+  @include flex(row, space-evenly, center);
+
+  width: 100%;
+}
+
+.mooze-form-btn {
+  @include neumorphism();
+
+  padding: 0.4rem 1.5rem;
 }

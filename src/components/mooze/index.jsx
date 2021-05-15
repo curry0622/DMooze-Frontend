@@ -1,63 +1,29 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import Web3Context from '../../contexts/web3Context';
-import Form from './form';
+import MoozeForm from './form';
 
-const MoozeContainer = () => {
-  // get web3 context
-  const {
-    web3,
-    getWeb3Instance,
-    accounts,
-    getAccountsInstance,
-    contract,
-    getContractInstance,
-  } = useContext(Web3Context);
-
-  const onClickConnect = () => {
-    getWeb3Instance();
-  };
-
-  // useEffect(() => {
-  //   getWeb3Instance();
-  // }, []);
-
-  useEffect(() => {
-    if (web3 !== undefined) {
-      getAccountsInstance();
-      getContractInstance();
-    }
-  }, [web3]);
-
-  return (
-    <div className={classNames('mooze-container')}>
-      <div className={classNames('mooze-left-container')}>
-        {/* <img
-          className={classNames('mooze-banner-img')}
-          alt="DMooze"
-          src={`${process.env.PUBLIC_URL}/moozePage/moose.svg`}
-        /> */}
+const MoozeContainer = () => (
+  <div className={classNames('mooze-container')}>
+    <div className={classNames('mooze-left-container')}>
+      <div className={classNames('mooze-left-text-container')}>
+        <div className={classNames('mooze-left-text-title')}>開始提案</div>
+        <div className={classNames('mooze-left-text-subtitle-en')}>
+          Start Moozing
+        </div>
+        <div className={classNames('mooze-left-text-subtitle-zh')}>
+          將你的點子上傳 讓更多人看見你吧!
+        </div>
       </div>
-      <div className={classNames('mooze-right-container')}>
-        {web3 !== undefined ? (
-          <Form />
-        ) : (
-          <button
-            className={classNames('mooze-metamask-btn')}
-            type="button"
-            onClick={onClickConnect}
-          >
-            <img
-              className={classNames('mooze-metamask-img')}
-              alt="metamask"
-              src={`${process.env.PUBLIC_URL}/moozePage/metamask.svg`}
-            />
-            CONNECT TO METAMASK
-          </button>
-        )}
-      </div>
+      <img
+        className={classNames('mooze-banner-img')}
+        alt="DMooze"
+        src={`${process.env.PUBLIC_URL}/moozePage/bg.png`}
+      />
     </div>
-  );
-};
+    <div className={classNames('mooze-right-container')}>
+      <MoozeForm />
+    </div>
+  </div>
+);
 
 export default MoozeContainer;
