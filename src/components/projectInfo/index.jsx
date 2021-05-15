@@ -1,14 +1,25 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable no-alert */
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState, useContext } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { Snackbar, CircularProgress } from '@material-ui/core';
+
+import Web3Context from '../../contexts/web3Context';
 import getProjectById from '../../apis/getProjectById';
+import postTxnRecord from '../../apis/postTxnRecord';
 
 const ProjectInfoContainer = ({ id }) => {
+  const {
+    web3,
+    getWeb3Instance,
+    accounts,
+    getAccountsInstance,
+    contract,
+    getContractInstance,
+  } = useContext(Web3Context);
   const [info, setInfo] = useState({});
-
-  useEffect(async () => {
-    setInfo(await getProjectById(id));
-  }, []);
+  const [isLoading, setIsLoading] = useState(false);
 
   const mapImages = info.img_url
     ? info.img_url.map((img) => (
@@ -22,6 +33,32 @@ const ProjectInfoContainer = ({ id }) => {
     : `${process.env.PUBLIC_URL}/projectInfoPage/sample.png`;
 
   const progress = ((info.current_price / info.target_price) * 100).toFixed(0);
+
+  const onClickSponsor = async () => {
+    if (!web3) {
+      getWeb3Instance();
+      return;
+    }
+    setIsLoading(true);
+    try {
+      await contract.methods.set(8989989).send({ from: accounts[0] });
+      await postTxnRecord();
+    } catch (e) {
+      alert(e.message);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(async () => {
+    setInfo(await getProjectById(id));
+  }, []);
+
+  useEffect(async () => {
+    if (web3 !== undefined) {
+      await getAccountsInstance();
+      await getContractInstance();
+    }
+  }, [web3]);
 
   return (
     <div className={classNames('project-info-container')}>
@@ -60,7 +97,7 @@ const ProjectInfoContainer = ({ id }) => {
             <span className={classNames('eth')}>ETH</span>
             <input type="number" />
             <span className={classNames('currency')}>NT$0</span>
-            <button type="button">
+            <button type="button" onClick={onClickSponsor}>
               <img
                 alt="metamask"
                 src={`${process.env.PUBLIC_URL}/projectInfoPage/metamask.svg`}
@@ -82,6 +119,12 @@ const ProjectInfoContainer = ({ id }) => {
           </div>
         </div>
       </div>
+      <Snackbar
+        open={isLoading}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        message="交易上鏈中..."
+        action={<CircularProgress color="inherit" size="18px" />}
+      />
     </div>
   );
 };

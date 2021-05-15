@@ -149,10 +149,10 @@ const MoozeForm = () => {
     validationSchema,
   });
 
-  useEffect(() => {
+  useEffect(async () => {
     if (web3 !== undefined) {
-      getAccountsInstance();
-      getContractInstance();
+      await getAccountsInstance();
+      await getContractInstance();
     }
   }, [web3]);
 
