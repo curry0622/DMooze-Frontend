@@ -1,41 +1,104 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   withStyles,
-  IconButton,
   Avatar,
   ListItem,
   ListItemAvatar,
-  ListItemIcon,
-  ListItemSecondaryAction,
   ListItemText,
 } from '@material-ui/core';
-import InsertLinkRoundedIcon from '@material-ui/icons/InsertLinkRounded';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
+import WhatshotRoundedIcon from '@material-ui/icons/WhatshotRounded';
+import AttachMoneyRoundedIcon from '@material-ui/icons/AttachMoneyRounded';
 
 const StyledListItem = withStyles({
   root: {
-    padding: 0,
+    padding: '5px',
     margin: '10px 0',
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: '#f7f7f7',
+    },
+    '&:active': {
+      backgroundColor: '#edeae9',
+    },
   },
 })(ListItem);
 
-const TxnItem = () => (
-  <StyledListItem>
-    <ListItemAvatar>
-      <Avatar>
-        <SendRoundedIcon />
-      </Avatar>
-    </ListItemAvatar>
-    <ListItemText
-      primary="0xqqpl9102di109u398h2193h81gj312n3910nqin..."
-      secondary="5 Eth"
-    />
-    {/* <ListItemSecondaryAction>
-      <IconButton edge="end" aria-label="delete">
-        <InsertLinkRoundedIcon />
-      </IconButton>
-    </ListItemSecondaryAction> */}
-  </StyledListItem>
-);
+const StyledListItemText = withStyles({
+  root: {
+    color: '#555',
+  },
+})(ListItemText);
+
+const TxnItem = ({ addr, type, money, txnHash, description }) => {
+  const getAvatar = () => {
+    switch (type) {
+      default: {
+        return '';
+      }
+      case 'create': {
+        return <WhatshotRoundedIcon />;
+      }
+      case 'sponsor': {
+        return <SendRoundedIcon fontSize="small" />;
+      }
+      case 'withdraw': {
+        return <AttachMoneyRoundedIcon />;
+      }
+    }
+  };
+
+  const getType = () => {
+    switch (type) {
+      default: {
+        return '';
+      }
+      case 'create': {
+        return '創建了此專案';
+      }
+      case 'sponsor': {
+        return '贊助了';
+      }
+      case 'withdraw': {
+        return '提領了';
+      }
+    }
+  };
+
+  return (
+    <StyledListItem
+      onClick={() =>
+        window
+          .open(`https://rinkeby.etherscan.io/tx/${txnHash}`, '_blank')
+          .focus()
+      }
+    >
+      <ListItemAvatar>
+        <Avatar>{getAvatar()}</Avatar>
+      </ListItemAvatar>
+      <StyledListItemText
+        primary={addr}
+        secondary={`${getType()} ${
+          money !== 0 ? `${money} Eth` : ''
+        } ${description}`}
+      />
+    </StyledListItem>
+  );
+};
+
+TxnItem.propTypes = {
+  addr: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  money: PropTypes.number,
+  txnHash: PropTypes.string,
+  description: PropTypes.string,
+};
+
+TxnItem.defaultProps = {
+  money: 0,
+  txnHash: '',
+  description: '',
+};
 
 export default TxnItem;

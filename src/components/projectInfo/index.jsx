@@ -97,9 +97,9 @@ const ProjectInfoContainer = ({ id }) => {
             className={classNames('value', 'link')}
             rel="noopener noreferrer"
             target="_blank"
-            href={`https://etherscan.io/address/${info.owner_addr}`}
+            href={`https://rinkeby.etherscan.io/address/${info.owner_addr}`}
           >
-            {`https://etherscan.io/address/${info.owner_addr}`}
+            {`https://rinkeby.etherscan.io/address/${info.owner_addr}`}
           </a>
         </div>
         {info.left_time !== 'expired' && (
