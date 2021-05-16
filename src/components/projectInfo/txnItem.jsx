@@ -32,7 +32,15 @@ const StyledListItemText = withStyles({
   },
 })(ListItemText);
 
-const TxnItem = ({ from, type, money, txnHash, description }) => {
+const firstItemStyle = {
+  marginTop: 0,
+};
+
+const lastItemStyle = {
+  marginBottom: 0,
+};
+
+const TxnItem = ({ position, from, type, money, txnHash, description }) => {
   const getAvatar = () => {
     switch (type) {
       default: {
@@ -67,6 +75,20 @@ const TxnItem = ({ from, type, money, txnHash, description }) => {
     }
   };
 
+  const getItemStyle = () => {
+    switch (position) {
+      default: {
+        return {};
+      }
+      case 'first': {
+        return firstItemStyle;
+      }
+      case 'last': {
+        return lastItemStyle;
+      }
+    }
+  };
+
   return (
     <StyledListItem
       onClick={() =>
@@ -74,6 +96,7 @@ const TxnItem = ({ from, type, money, txnHash, description }) => {
           .open(`https://rinkeby.etherscan.io/tx/${txnHash}`, '_blank')
           .focus()
       }
+      style={getItemStyle()}
     >
       <ListItemAvatar>
         <Avatar>{getAvatar()}</Avatar>
@@ -89,6 +112,7 @@ const TxnItem = ({ from, type, money, txnHash, description }) => {
 };
 
 TxnItem.propTypes = {
+  position: PropTypes.string,
   from: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   money: PropTypes.number,
@@ -97,6 +121,7 @@ TxnItem.propTypes = {
 };
 
 TxnItem.defaultProps = {
+  position: '',
   money: 0,
   txnHash: '',
   description: '',

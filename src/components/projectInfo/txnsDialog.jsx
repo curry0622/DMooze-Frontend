@@ -29,6 +29,13 @@ const StyledDialogTitle = withStyles({
   },
 })(DialogTitle);
 
+const StyledDialogContent = withStyles({
+  root: {
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
+})(DialogContent);
+
 const TxnsDialog = ({ setOpenTxnsDialog }) => {
   const [open, setOpen] = useState(true);
 
@@ -60,9 +67,10 @@ const TxnsDialog = ({ setOpenTxnsDialog }) => {
           </div>
         </div>
         <StyledDialogTitle id="title">交易紀錄</StyledDialogTitle>
-        <DialogContent id="content">
+        <StyledDialogContent id="content">
           <DialogContentText>
             <TxnItem
+              position="first"
               from="成大桌遊社"
               type="withdraw"
               money="0.1"
@@ -112,9 +120,9 @@ const TxnsDialog = ({ setOpenTxnsDialog }) => {
               money="7.8"
               txnHash="0xebcb4a6521e096d9e52c8b8185d77c9e8039aa406ffde65197b1c7d442e35427"
             />
-            <TxnItem from="成大桌遊社" type="create" />
+            <TxnItem position="last" from="成大桌遊社" type="create" />
           </DialogContentText>
-        </DialogContent>
+        </StyledDialogContent>
         <DialogActions>
           <Button onClick={onClose}>關閉</Button>
         </DialogActions>
