@@ -14,6 +14,7 @@ import AttachMoneyRoundedIcon from '@material-ui/icons/AttachMoneyRounded';
 const StyledListItem = withStyles({
   root: {
     padding: '5px',
+    paddingRight: '10px',
     margin: '10px 0',
     cursor: 'pointer',
     '&:hover': {
@@ -31,7 +32,7 @@ const StyledListItemText = withStyles({
   },
 })(ListItemText);
 
-const TxnItem = ({ addr, type, money, txnHash, description }) => {
+const TxnItem = ({ from, type, money, txnHash, description }) => {
   const getAvatar = () => {
     switch (type) {
       default: {
@@ -78,7 +79,7 @@ const TxnItem = ({ addr, type, money, txnHash, description }) => {
         <Avatar>{getAvatar()}</Avatar>
       </ListItemAvatar>
       <StyledListItemText
-        primary={addr}
+        primary={from}
         secondary={`${getType()} ${
           money !== 0 ? `${money} Eth` : ''
         } ${description}`}
@@ -88,7 +89,7 @@ const TxnItem = ({ addr, type, money, txnHash, description }) => {
 };
 
 TxnItem.propTypes = {
-  addr: PropTypes.string.isRequired,
+  from: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   money: PropTypes.number,
   txnHash: PropTypes.string,

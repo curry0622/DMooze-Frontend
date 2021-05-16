@@ -7,9 +7,9 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import Web3Context from '../../contexts/web3Context';
 import getProjectById from '../../apis/getProjectById';
-import postTxnRecord from '../../apis/postTxnRecord';
 import getEth2Twd from '../../utils/getEth2Twd';
 import TxnsDialog from './txnsDialog';
+import sponsor from '../../apis/sponsor';
 
 const ProjectInfoContainer = ({ id }) => {
   const {
@@ -46,8 +46,15 @@ const ProjectInfoContainer = ({ id }) => {
     }
     setIsLoading(true);
     try {
-      await contract.methods.set(eth).send({ from: accounts[0] });
-      await postTxnRecord();
+      const { transactionHash } = await contract.methods
+        .set(1)
+        .send({ from: accounts[0] });
+      await sponsor({
+        money: eth,
+        proposal_id: id,
+        sponsor_addr: accounts[0],
+        transaction_hash: transactionHash,
+      });
     } catch (e) {
       alert(e.message);
     }
@@ -102,6 +109,13 @@ const ProjectInfoContainer = ({ id }) => {
             {`https://rinkeby.etherscan.io/address/${info.owner_addr}`}
           </a>
         </div>
+        <div className={classNames('project-info-text-item-container')}>
+          <span className="label">。進度</span>
+          <span>
+            ${info.current_price} / ${info.target_price}
+          </span>
+          <span className={classNames('target')}>(目標金額)</span>
+        </div>
         {info.left_time !== 'expired' && (
           <div className={classNames('project-info-text-item-container')}>
             <span className="label">。贊助</span>
@@ -131,13 +145,6 @@ const ProjectInfoContainer = ({ id }) => {
             </div>
           </div>
         )}
-        <div className={classNames('project-info-text-item-container')}>
-          <span className="label">。進度</span>
-          <span>
-            ${info.current_price} / ${info.target_price}
-          </span>
-          <span className={classNames('target')}>(目標金額)</span>
-        </div>
         <div className={classNames('project-info-text-description-container')}>
           <div className={classNames('content')}>
             {info.project_description}

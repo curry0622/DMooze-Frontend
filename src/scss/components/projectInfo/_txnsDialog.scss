@@ -1,0 +1,27 @@
+.project-info-contact-container {
+  @include flex(row, space-between, center);
+
+  padding: 0 24px;
+  width: 100%;
+  color: $text-color;
+
+  > div {
+    @include flex(row, flex-start, center);
+
+    padding: 5px;
+    width: 50%;
+
+    > a {
+      overflow-x: hidden;
+      overflow-y: hidden;
+      margin-left: 10px;
+      line-height: 1.2rem;
+      font-size: 0.8rem;
+      text-overflow: ellipsis;
+
+      &:hover {
+        font-weight: bold;
+      }
+    }
+  }
+}
