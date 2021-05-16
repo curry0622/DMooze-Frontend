@@ -8,7 +8,17 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  createMuiTheme,
+  ThemeProvider,
 } from '@material-ui/core';
+
+import TxnItem from './txnItem';
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'Noto Serif TC, serif',
+  },
+});
 
 const TxnsDialog = ({ setOpenTxnsDialog }) => {
   const [open, setOpen] = useState(true);
@@ -19,17 +29,21 @@ const TxnsDialog = ({ setOpenTxnsDialog }) => {
   };
 
   return (
-    <Dialog open={open} aria-labelledby="title" aria-describedby="content">
-      <DialogTitle id="title">title</DialogTitle>
-      <DialogContent id="content">
-        <DialogContentText>
-          contentewfqqfwefewfwefwfwgegqregergeqgerherhq
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>close</Button>
-      </DialogActions>
-    </Dialog>
+    <ThemeProvider theme={theme}>
+      <Dialog open={open} aria-labelledby="title" aria-describedby="content">
+        <DialogTitle id="title">交易紀錄</DialogTitle>
+        <DialogContent id="content">
+          <DialogContentText>
+            <TxnItem />
+            <TxnItem />
+            <TxnItem />
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose}>關閉</Button>
+        </DialogActions>
+      </Dialog>
+    </ThemeProvider>
   );
 };
 
