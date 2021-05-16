@@ -36,7 +36,7 @@ const Card = ({ id, name, img, price, target, day }) => {
               }`,
             )}
           >
-            {day === 'expired' ? '已過期' : `還剩 ${day}`}
+            {day === 'expired' ? '已結束' : `還剩 ${day}`}
           </div>
         </div>
       </div>

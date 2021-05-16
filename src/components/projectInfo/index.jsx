@@ -3,7 +3,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { Snackbar, CircularProgress } from '@material-ui/core';
+import { IconButton, Snackbar, CircularProgress } from '@material-ui/core';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import Web3Context from '../../contexts/web3Context';
 import getProjectById from '../../apis/getProjectById';
@@ -73,10 +74,15 @@ const ProjectInfoContainer = ({ id }) => {
         <div className={classNames('project-info-text-progress-container')}>
           <div className={classNames('bar')} style={{ left: `${progress}%` }} />
         </div>
-        <div className={classNames('project-info-text-name')}>
-          {info.project_name}
+        <div className={classNames('project-info-text-top-container')}>
+          <IconButton>
+            <VisibilityIcon />
+          </IconButton>
+          <div className={classNames('project-info-text-top-name')}>
+            {info.project_name}
+          </div>
           <span className={info.left_time}>
-            {info.left_time === 'expired' ? '已過期' : `還剩 ${info.left_time}`}
+            {info.left_time === 'expired' ? '已結束' : `還剩 ${info.left_time}`}
           </span>
           <span>進度 {progress}%</span>
         </div>

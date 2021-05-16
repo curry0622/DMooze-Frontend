@@ -2,23 +2,22 @@
   @include flex(row, space-between, flex-start);
 
   padding: 3rem 0;
-  width: 75%;
+  width: 80%;
   min-height: calc(100% - 80px);
   color: $text-color;
 }
 
 .project-info-images-container {
-  overflow-x: auto;
   overflow-y: auto;
-  margin-right: 5rem;
-  width: calc(50% - 5rem);
+  width: 50%;
   height: 100%;
 }
 
 .project-info-text-container {
   @include flex(column, space-between, flex-start);
 
-  width: 50%;
+  margin-left: 3rem;
+  width: calc(50% + 3rem);
   height: 100%;
   font-size: 1rem;
 }
@@ -28,18 +27,20 @@
   object-fit: contain;
 }
 
-.project-info-text-name {
+.project-info-text-top-container {
   @include flex(row, flex-start, center);
 
   margin-top: -9px;
   width: 100%;
   height: auto;
-  font-size: 2rem;
+  font-size: 1.8rem;
   text-shadow: 1.5px 1.5px 2px rgba(0, 0, 0, 0.25),
     -1.5px -1.5px 2px rgba(255, 255, 255, 1);
+  // border: red solid 1px;
 
   > span {
-    align-self: flex-end;
+    // align-self: flex-end;
+    // margin-top: 5px;
     margin-left: 10px;
     padding: 5px 7px;
     font-size: 0.7rem;
@@ -52,6 +53,14 @@
     color: #eee;
     background-color: #555;
   }
+}
+
+.project-info-text-top-name {
+  margin-top: -7px;
+  margin-left: 10px;
+  word-wrap: break-word;
+  word-break: break-all;
+  // border: red solid 1px;
 }
 
 .project-info-text-item-container {
