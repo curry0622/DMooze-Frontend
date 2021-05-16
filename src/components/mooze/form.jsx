@@ -185,7 +185,7 @@ const MoozeForm = () => {
         />
         <StyledTextField
           name="target"
-          label="目標金額 (ETH)"
+          label="目標金額 (TWD)"
           value={formik.values.target}
           onChange={formik.handleChange}
           error={formik.touched.owner && Boolean(formik.errors.owner)}

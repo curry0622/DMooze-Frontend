@@ -26,11 +26,17 @@ const Card = ({ id, name, img, price, target, day }) => {
         </div>
         <div className={classNames('projects-card-content-info-container')}>
           <div className={classNames('projects-card-content-info-money')}>
-            ${price}
+            NT$ {price}
             <span>{progress}%</span>
           </div>
-          <div className={classNames('projects-card-content-info-day')}>
-            還剩{day}天
+          <div
+            className={classNames(
+              `projects-card-content-info-day${
+                day === 'expired' ? '--expired' : ''
+              }`,
+            )}
+          >
+            {day === 'expired' ? '已過期' : `還剩 ${day}`}
           </div>
         </div>
       </div>

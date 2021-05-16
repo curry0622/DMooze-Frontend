@@ -30,7 +30,7 @@ const ProjectsContainer = () => {
       img: d.img_url[0],
       price: d.current_price,
       target: d.target_price,
-      day: 25,
+      day: d.left_time,
     }));
     setProjects(tmp);
   }, [page]);

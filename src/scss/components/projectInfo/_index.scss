@@ -47,6 +47,11 @@
     border-radius: 5px;
     text-shadow: none;
   }
+
+  > .expired {
+    color: #eee;
+    background-color: #555;
+  }
 }
 
 .project-info-text-item-container {
@@ -112,7 +117,7 @@
 
     margin-right: 20px;
     padding: 5px;
-    width: 150px;
+    width: 100px;
     background-color: #edeae9;
     border: 0;
     border-radius: 5px;

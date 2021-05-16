@@ -75,7 +75,9 @@ const ProjectInfoContainer = ({ id }) => {
         </div>
         <div className={classNames('project-info-text-name')}>
           {info.project_name}
-          <span>剩餘 21天</span>
+          <span className={info.left_time}>
+            {info.left_time === 'expired' ? '已過期' : `還剩 ${info.left_time}`}
+          </span>
           <span>進度 {progress}%</span>
         </div>
         <div className={classNames('project-info-text-item-container')}>
@@ -93,30 +95,35 @@ const ProjectInfoContainer = ({ id }) => {
             {`https://etherscan.io/address/${info.owner_addr}`}
           </a>
         </div>
-        <div className={classNames('project-info-text-item-container')}>
-          <span className="label">。贊助</span>
-          <div
-            className={classNames('project-info-text-input-container', 'value')}
-          >
-            <span className={classNames('eth')}>ETH</span>
-            <input
-              type="number"
-              step="0.0001"
-              value={eth}
-              onChange={(e) => setEth(e.target.value)}
-            />
-            <span className={classNames('currency')}>
-              NT${(exchangeRate * eth).toFixed(0)}
-            </span>
-            <button type="button" onClick={onClickSponsor} disabled={isLoading}>
-              <img
-                alt="metamask"
-                src={`${process.env.PUBLIC_URL}/projectInfoPage/metamask.svg`}
+        {info.left_time !== 'expired' && (
+          <div className={classNames('project-info-text-item-container')}>
+            <span className="label">。贊助</span>
+            <div
+              className={classNames(
+                'project-info-text-input-container',
+                'value',
+              )}
+            >
+              <span className={classNames('eth')}>ETH</span>
+              <input
+                type="number"
+                step="0.0001"
+                value={eth}
+                onChange={(e) => setEth(e.target.value)}
               />
-              發送
-            </button>
+              <span className={classNames('currency')}>
+                NT$ {(exchangeRate * eth).toFixed(0)}
+              </span>
+              <button type="button" onClick={onClickSponsor}>
+                <img
+                  alt="metamask"
+                  src={`${process.env.PUBLIC_URL}/projectInfoPage/metamask.svg`}
+                />
+                發送
+              </button>
+            </div>
           </div>
-        </div>
+        )}
         <div className={classNames('project-info-text-item-container')}>
           <span className="label">。進度</span>
           <span>
