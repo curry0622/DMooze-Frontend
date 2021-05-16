@@ -22,6 +22,7 @@ import Web3Context from '../../contexts/web3Context';
 import getUniqueId from '../../apis/getUniqueId';
 import createProject from '../../apis/createProject';
 import uploadImages from '../../apis/uploadImages';
+import getEth2Twd from '../../utils/getEth2Twd';
 
 const theme = createMuiTheme({
   typography: {
@@ -108,7 +109,7 @@ const MoozeForm = () => {
       await contract.methods.set(8989989).send({ from: accounts[0] });
       createProject(true, id, {
         owner_addr: accounts[0],
-        target_price: values.target,
+        target_price: values.target / (await getEth2Twd()),
         project_description: values.description,
         project_name: values.name,
         representative: values.owner,

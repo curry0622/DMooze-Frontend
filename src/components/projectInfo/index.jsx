@@ -1,5 +1,4 @@
 /* eslint-disable no-alert */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useContext } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -10,6 +9,7 @@ import Web3Context from '../../contexts/web3Context';
 import getProjectById from '../../apis/getProjectById';
 import postTxnRecord from '../../apis/postTxnRecord';
 import getEth2Twd from '../../utils/getEth2Twd';
+import TxnsDialog from './txnsDialog';
 
 const ProjectInfoContainer = ({ id }) => {
   const {
@@ -24,6 +24,7 @@ const ProjectInfoContainer = ({ id }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [exchangeRate, setExchangeRate] = useState(0);
   const [eth, setEth] = useState(0);
+  const [openTxnsDialog, setOpenTxnsDialog] = useState(false);
 
   const mapImages = info.img_url
     ? info.img_url.map((img) => (
@@ -75,7 +76,7 @@ const ProjectInfoContainer = ({ id }) => {
           <div className={classNames('bar')} style={{ left: `${progress}%` }} />
         </div>
         <div className={classNames('project-info-text-top-container')}>
-          <IconButton>
+          <IconButton onClick={() => setOpenTxnsDialog(true)}>
             <VisibilityIcon />
           </IconButton>
           <div className={classNames('project-info-text-top-name')}>
@@ -149,6 +150,7 @@ const ProjectInfoContainer = ({ id }) => {
         message="交易上鏈中..."
         action={<CircularProgress color="inherit" size="18px" />}
       />
+      {openTxnsDialog && <TxnsDialog setOpenTxnsDialog={setOpenTxnsDialog} />}
     </div>
   );
 };
