@@ -9,6 +9,7 @@ import Web3Context from '../../contexts/web3Context';
 import getProjectById from '../../apis/getProjectById';
 import getEth2Twd from '../../utils/getEth2Twd';
 import TxnsDialog from './txnsDialog';
+import WithdrawDialog from './withdrawDialog';
 import sponsor from '../../apis/sponsor';
 
 const ProjectInfoContainer = ({ id }) => {
@@ -25,7 +26,9 @@ const ProjectInfoContainer = ({ id }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [exchangeRate, setExchangeRate] = useState(0);
   const [eth, setEth] = useState(0);
+  const [notOwner, setNotOwner] = useState(false);
   const [openTxnsDialog, setOpenTxnsDialog] = useState(false);
+  const [openWithdrawDialog, setOpenWithdrawDialog] = useState(false);
 
   const mapImages = info.img_url
     ? info.img_url.map((img) => (
@@ -42,7 +45,11 @@ const ProjectInfoContainer = ({ id }) => {
 
   const onClickSponsor = async () => {
     if (!web3) {
-      getWeb3Instance();
+      await getWeb3Instance();
+      return;
+    }
+    if (eth <= 0) {
+      alert('贊助金額需大於零');
       return;
     }
     setIsLoading(true);
@@ -60,6 +67,20 @@ const ProjectInfoContainer = ({ id }) => {
       alert(e.message);
     }
     setIsLoading(false);
+    window.location.reload();
+  };
+
+  const onClickWithdraw = async () => {
+    if (!web3) {
+      await getWeb3Instance();
+      return;
+    }
+    if (accounts[0] !== info.owner_addr) {
+      alert('只有該專案擁有者可提領');
+      setNotOwner(true);
+      return;
+    }
+    setOpenWithdrawDialog(true);
   };
 
   useEffect(async () => {
@@ -77,6 +98,7 @@ const ProjectInfoContainer = ({ id }) => {
   useEffect(() => {
     if (Object.keys(info).length !== 0) {
       const {
+        create_hash: firstTxnHash,
         money_input: sponsorMoney,
         money_output: withdrawMoney,
         sponsor_addr: sponsorAddr,
@@ -86,6 +108,15 @@ const ProjectInfoContainer = ({ id }) => {
         use_description: withdrawDescription,
       } = info;
       const tmp = [];
+      for (let i = 0; i < withdrawMoney.length; i += 1) {
+        tmp.push({
+          from: owner,
+          type: 'withdraw',
+          money: withdrawMoney[i],
+          txnHash: withdrawTxnHash[i],
+          description: withdrawDescription[i],
+        });
+      }
       for (let i = 0; i < sponsorMoney.length; i += 1) {
         tmp.push({
           from: sponsorAddr[i],
@@ -95,20 +126,11 @@ const ProjectInfoContainer = ({ id }) => {
           description: '',
         });
       }
-      for (let i = 0; i < withdrawMoney.length; i += 1) {
-        tmp.push({
-          from: owner,
-          type: 'withdraw',
-          money: withdrawMoney[i],
-          txnHash: withdrawTxnHash[i],
-          description: withdrawDescription,
-        });
-      }
       tmp.push({
         from: owner,
         type: 'create',
         money: 0,
-        txnHash: '0x123createPro',
+        txnHash: firstTxnHash,
         description: '',
       });
       setTxns(tmp);
@@ -154,11 +176,12 @@ const ProjectInfoContainer = ({ id }) => {
         <div className={classNames('project-info-text-item-container')}>
           <span className="label">。進度</span>
           <span>
-            ${info.current_price} / ${info.target_price}
+            ${(info.current_price * exchangeRate).toFixed(0)} / $
+            {(info.target_price * exchangeRate).toFixed(0)}
           </span>
           <span className={classNames('target')}>(目標金額)</span>
         </div>
-        {info.left_time !== 'expired' && (
+        {info.left_time !== 'expired' ? (
           <div className={classNames('project-info-text-item-container')}>
             <span className="label">。贊助</span>
             <div
@@ -177,12 +200,38 @@ const ProjectInfoContainer = ({ id }) => {
               <span className={classNames('currency')}>
                 NT$ {(exchangeRate * eth).toFixed(0)}
               </span>
-              <button type="button" onClick={onClickSponsor}>
+              <button
+                type="button"
+                onClick={onClickSponsor}
+                disabled={isLoading}
+              >
                 <img
                   alt="metamask"
                   src={`${process.env.PUBLIC_URL}/projectInfoPage/metamask.svg`}
                 />
                 發送
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className={classNames('project-info-text-item-container')}>
+            <span className="label">。提領</span>
+            <div
+              className={classNames(
+                'project-info-text-input-container',
+                'value',
+              )}
+            >
+              <button
+                type="button"
+                onClick={onClickWithdraw}
+                disabled={notOwner}
+              >
+                <img
+                  alt="metamask"
+                  src={`${process.env.PUBLIC_URL}/projectInfoPage/metamask.svg`}
+                />
+                提領
               </button>
             </div>
           </div>
@@ -207,6 +256,7 @@ const ProjectInfoContainer = ({ id }) => {
           mail={info.email}
         />
       )}
+      {true && <WithdrawDialog setOpenWithdrawDialog={setOpenWithdrawDialog} />}
     </div>
   );
 };

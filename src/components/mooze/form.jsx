@@ -106,8 +106,10 @@ const MoozeForm = () => {
     setIsLoading(true);
     const id = await getUniqueId();
     try {
-      await contract.methods.set(8989989).send({ from: accounts[0] });
-      createProject(true, id, {
+      const { transactionHash } = await contract.methods
+        .set(8989989)
+        .send({ from: accounts[0] });
+      await createProject(true, id, {
         owner_addr: accounts[0],
         target_price: values.target / (await getEth2Twd()),
         project_description: values.description,
@@ -115,11 +117,12 @@ const MoozeForm = () => {
         representative: values.owner,
         email: values.email,
         phone: values.phone,
+        create_hash: transactionHash,
       });
       uploadImages(id, imgArr);
     } catch (e) {
       alert(e.message);
-      createProject(false, id, {});
+      await createProject(false, id, {});
     }
     actions.resetForm({
       values: initialValues,

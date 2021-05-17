@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import getEth2Twd from '../../utils/getEth2Twd';
+
 const Card = ({ id, name, img, price, target, day }) => {
+  const [exchangeRate, setExchangeRate] = useState(0);
   const progress = ((price / target) * 100).toFixed(0);
+
+  useEffect(async () => setExchangeRate(await getEth2Twd()), []);
 
   return (
     <Link
@@ -18,7 +23,10 @@ const Card = ({ id, name, img, price, target, day }) => {
       />
       <div className={classNames('projects-card-content-container')}>
         <div className={classNames('projects-card-content-name')}>{name}</div>
-        <div className={classNames('projects-card-content-progress')}>
+        <div
+          className={classNames('projects-card-content-progress')}
+          style={{ backgroundColor: `${progress < 100 ? '#555' : '#eb0000'}` }}
+        >
           <div
             className={classNames('projects-card-content-progress-value')}
             style={{ left: `${progress}%` }}
@@ -26,7 +34,7 @@ const Card = ({ id, name, img, price, target, day }) => {
         </div>
         <div className={classNames('projects-card-content-info-container')}>
           <div className={classNames('projects-card-content-info-money')}>
-            NT$ {price}
+            NT$ {(price * exchangeRate).toFixed(0)}
             <span>{progress}%</span>
           </div>
           <div
@@ -50,7 +58,7 @@ Card.propTypes = {
   img: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   target: PropTypes.number.isRequired,
-  day: PropTypes.number.isRequired,
+  day: PropTypes.string.isRequired,
 };
 
 export default Card;
