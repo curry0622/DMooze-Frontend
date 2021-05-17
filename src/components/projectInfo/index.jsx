@@ -11,6 +11,7 @@ import getEth2Twd from '../../utils/getEth2Twd';
 import TxnsDialog from './txnsDialog';
 import WithdrawDialog from './withdrawDialog';
 import sponsor from '../../apis/sponsor';
+import withdraw from '../../apis/withdraw';
 
 const ProjectInfoContainer = ({ id }) => {
   const {
@@ -81,6 +82,25 @@ const ProjectInfoContainer = ({ id }) => {
       return;
     }
     setOpenWithdrawDialog(true);
+  };
+
+  const onConfirmWithdraw = async (money, description) => {
+    setIsLoading(true);
+    try {
+      const { transactionHash } = await contract.methods
+        .set(1)
+        .send({ from: accounts[0] });
+      await withdraw({
+        money,
+        proposal_id: id,
+        use_description: description,
+        transaction_hash: transactionHash,
+      });
+    } catch (e) {
+      alert(e.message);
+    }
+    setIsLoading(false);
+    window.location.reload();
   };
 
   useEffect(async () => {
@@ -256,7 +276,12 @@ const ProjectInfoContainer = ({ id }) => {
           mail={info.email}
         />
       )}
-      {true && <WithdrawDialog setOpenWithdrawDialog={setOpenWithdrawDialog} />}
+      {openWithdrawDialog && (
+        <WithdrawDialog
+          setOpenWithdrawDialog={setOpenWithdrawDialog}
+          onConfirmWithdraw={onConfirmWithdraw}
+        />
+      )}
     </div>
   );
 };

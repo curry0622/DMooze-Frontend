@@ -52,7 +52,7 @@ const StyledTextField = withStyles({
   },
 })(TextField);
 
-const WithdrawDialog = ({ setOpenWithdrawDialog }) => {
+const WithdrawDialog = ({ setOpenWithdrawDialog, onConfirmWithdraw }) => {
   const [exchangeRate, setExchangeRate] = useState(0);
   const [open, setOpen] = useState(true);
   const [money, setMoney] = useState(0);
@@ -61,6 +61,11 @@ const WithdrawDialog = ({ setOpenWithdrawDialog }) => {
   const onClose = () => {
     setOpen(false);
     setOpenWithdrawDialog(false);
+  };
+
+  const onSend = async () => {
+    onConfirmWithdraw(money / exchangeRate, description);
+    onClose();
   };
 
   useEffect(async () => setExchangeRate(await getEth2Twd()), []);
@@ -109,7 +114,9 @@ const WithdrawDialog = ({ setOpenWithdrawDialog }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>取消</Button>
-          <Button>送出</Button>
+          <Button onClick={onSend} disabled={money <= 0 || description === ''}>
+            送出
+          </Button>
         </DialogActions>
       </Dialog>
     </ThemeProvider>
@@ -118,6 +125,7 @@ const WithdrawDialog = ({ setOpenWithdrawDialog }) => {
 
 WithdrawDialog.propTypes = {
   setOpenWithdrawDialog: PropTypes.func.isRequired,
+  onConfirmWithdraw: PropTypes.func.isRequired,
 };
 
 export default WithdrawDialog;
