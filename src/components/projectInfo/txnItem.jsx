@@ -112,19 +112,12 @@ const TxnItem = ({ position, from, type, money, txnHash, description }) => {
 };
 
 TxnItem.propTypes = {
-  position: PropTypes.string,
+  position: PropTypes.string.isRequired,
   from: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  money: PropTypes.number,
-  txnHash: PropTypes.string,
-  description: PropTypes.string,
-};
-
-TxnItem.defaultProps = {
-  position: '',
-  money: 0,
-  txnHash: '',
-  description: '',
+  money: PropTypes.number.isRequired,
+  txnHash: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
 };
 
 export default TxnItem;

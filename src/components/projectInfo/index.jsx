@@ -21,6 +21,7 @@ const ProjectInfoContainer = ({ id }) => {
     getContractInstance,
   } = useContext(Web3Context);
   const [info, setInfo] = useState({});
+  const [txns, setTxns] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [exchangeRate, setExchangeRate] = useState(0);
   const [eth, setEth] = useState(0);
@@ -72,6 +73,47 @@ const ProjectInfoContainer = ({ id }) => {
       await getContractInstance();
     }
   }, [web3]);
+
+  useEffect(() => {
+    if (Object.keys(info).length !== 0) {
+      const {
+        money_input: sponsorMoney,
+        money_output: withdrawMoney,
+        sponsor_addr: sponsorAddr,
+        representative: owner,
+        transaction_hash_input: sponsorTxnHash,
+        transaction_hash_output: withdrawTxnHash,
+        use_description: withdrawDescription,
+      } = info;
+      const tmp = [];
+      for (let i = 0; i < sponsorMoney.length; i += 1) {
+        tmp.push({
+          from: sponsorAddr[i],
+          type: 'sponsor',
+          money: sponsorMoney[i],
+          txnHash: sponsorTxnHash[i],
+          description: '',
+        });
+      }
+      for (let i = 0; i < withdrawMoney.length; i += 1) {
+        tmp.push({
+          from: owner,
+          type: 'withdraw',
+          money: withdrawMoney[i],
+          txnHash: withdrawTxnHash[i],
+          description: withdrawDescription,
+        });
+      }
+      tmp.push({
+        from: owner,
+        type: 'create',
+        money: 0,
+        txnHash: '0x123createPro',
+        description: '',
+      });
+      setTxns(tmp);
+    }
+  }, [info]);
 
   return (
     <div className={classNames('project-info-container')}>
@@ -157,7 +199,14 @@ const ProjectInfoContainer = ({ id }) => {
         message="交易上鏈中..."
         action={<CircularProgress color="inherit" size="18px" />}
       />
-      {openTxnsDialog && <TxnsDialog setOpenTxnsDialog={setOpenTxnsDialog} />}
+      {openTxnsDialog && (
+        <TxnsDialog
+          setOpenTxnsDialog={setOpenTxnsDialog}
+          txns={txns}
+          phone={info.phone}
+          mail={info.email}
+        />
+      )}
     </div>
   );
 };
