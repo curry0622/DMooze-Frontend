@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   withStyles,
@@ -10,6 +10,8 @@ import {
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import WhatshotRoundedIcon from '@material-ui/icons/WhatshotRounded';
 import AttachMoneyRoundedIcon from '@material-ui/icons/AttachMoneyRounded';
+
+import getEth2Twd from '../../utils/getEth2Twd';
 
 const StyledListItem = withStyles({
   root: {
@@ -41,6 +43,8 @@ const lastItemStyle = {
 };
 
 const TxnItem = ({ position, from, type, money, txnHash, description }) => {
+  const [exchangeRate, setExchangeRate] = useState(0);
+
   const getAvatar = () => {
     switch (type) {
       default: {
@@ -89,6 +93,8 @@ const TxnItem = ({ position, from, type, money, txnHash, description }) => {
     }
   };
 
+  useEffect(async () => setExchangeRate(await getEth2Twd()), []);
+
   return (
     <StyledListItem
       onClick={() =>
@@ -104,7 +110,7 @@ const TxnItem = ({ position, from, type, money, txnHash, description }) => {
       <StyledListItemText
         primary={from}
         secondary={`${getType()} ${
-          money !== 0 ? `NT$ ${money}` : ''
+          money !== 0 ? `NT$ ${(money * exchangeRate).toFixed(0)}` : ''
         } ${description}`}
       />
     </StyledListItem>

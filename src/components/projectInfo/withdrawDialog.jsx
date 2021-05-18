@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -13,6 +13,8 @@ import {
   ThemeProvider,
   withStyles,
 } from '@material-ui/core';
+
+import getEth2Twd from '../../utils/getEth2Twd';
 
 const theme = createMuiTheme({
   typography: {
@@ -53,13 +55,13 @@ const StyledTextField = withStyles({
 const WithdrawDialog = ({
   setOpenWithdrawDialog,
   onConfirmWithdraw,
-  exchangeRate,
   withdrawn,
   left,
 }) => {
   const [open, setOpen] = useState(true);
   const [money, setMoney] = useState(0);
   const [description, setDescription] = useState('');
+  const [exchangeRate, setExchangeRate] = useState(0);
 
   const onClose = () => {
     setOpen(false);
@@ -67,9 +69,11 @@ const WithdrawDialog = ({
   };
 
   const onSend = async () => {
-    onConfirmWithdraw(money / exchangeRate, description);
+    onConfirmWithdraw(money, description);
     onClose();
   };
+
+  useEffect(async () => setExchangeRate(await getEth2Twd()), []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -120,9 +124,9 @@ const WithdrawDialog = ({
           <Button
             onClick={onSend}
             disabled={
-              (money * exchangeRate).toFixed(0) <= 0 ||
+              money * exchangeRate <= 0 ||
               description === '' ||
-              (money * exchangeRate).toFixed(0) > left
+              money * exchangeRate > left
             }
           >
             送出
@@ -136,7 +140,6 @@ const WithdrawDialog = ({
 WithdrawDialog.propTypes = {
   setOpenWithdrawDialog: PropTypes.func.isRequired,
   onConfirmWithdraw: PropTypes.func.isRequired,
-  exchangeRate: PropTypes.number.isRequired,
   withdrawn: PropTypes.number.isRequired,
   left: PropTypes.number.isRequired,
 };

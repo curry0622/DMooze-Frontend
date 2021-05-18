@@ -80,7 +80,7 @@ const ProjectInfoContainer = ({ id }) => {
     if (accounts[0] !== info.owner_addr) {
       alert('只有該專案擁有者可提領');
       setNotOwner(true);
-      // return;
+      return;
     }
     setOpenWithdrawDialog(true);
   };
@@ -134,7 +134,7 @@ const ProjectInfoContainer = ({ id }) => {
         tmp.push({
           from: owner,
           type: 'withdraw',
-          money: (withdrawMoney[i] * exchangeRate).toFixed(0),
+          money: withdrawMoney[i],
           txnHash: withdrawTxnHash[i],
           description: withdrawDescription[i],
         });
@@ -144,7 +144,7 @@ const ProjectInfoContainer = ({ id }) => {
         tmp.push({
           from: sponsorAddr[i],
           type: 'sponsor',
-          money: (sponsorMoney[i] * exchangeRate).toFixed(0),
+          money: sponsorMoney[i],
           txnHash: sponsorTxnHash[i],
           description: '',
         });
@@ -284,7 +284,6 @@ const ProjectInfoContainer = ({ id }) => {
         <WithdrawDialog
           setOpenWithdrawDialog={setOpenWithdrawDialog}
           onConfirmWithdraw={onConfirmWithdraw}
-          exchangeRate={exchangeRate}
           withdrawn={withdrawn * exchangeRate}
           left={(info.current_price - withdrawn) * exchangeRate}
         />

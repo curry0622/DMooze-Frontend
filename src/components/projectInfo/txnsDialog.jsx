@@ -51,6 +51,7 @@ const TxnsDialog = ({ setOpenTxnsDialog, txns, phone, mail }) => {
     else if (i === txns.length) position = 'last';
     return (
       <TxnItem
+        key={txn.txnHash}
         position={position}
         from={txn.from}
         type={txn.type}
@@ -74,11 +75,11 @@ const TxnsDialog = ({ setOpenTxnsDialog, txns, phone, mail }) => {
         <div className={classNames('project-info-contact-container')}>
           <div>
             <CallIcon color="action" />
-            <a href="tel:+0905351083">{phone}</a>
+            <a href={`tel:+${phone}`}>{phone}</a>
           </div>
           <div>
             <MailIcon color="action" />
-            <a href="mailto:kingkazma0112305@gmail.com">{mail}</a>
+            <a href={`mailto:${mail}`}>{mail}</a>
           </div>
         </div>
         <StyledDialogTitle id="title">交易紀錄</StyledDialogTitle>
