@@ -206,7 +206,8 @@ const MoozeForm = () => {
           variant="outlined"
           type="number"
           size="small"
-          fullWidthInputProps={{
+          fullWidth
+          InputProps={{
             startAdornment: (
               <InputAdornment position="start">Eth</InputAdornment>
             ),
