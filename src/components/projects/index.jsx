@@ -57,7 +57,8 @@ const ProjectsContainer = () => {
 
   useEffect(async () => {
     setTotalPage(await getTotalPage(expired));
-  }, []);
+    setPage(1);
+  }, [expired]);
 
   useEffect(async () => {
     let tmp = await getProjectsByPage(page, expired);
