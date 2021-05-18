@@ -80,7 +80,7 @@ const ProjectInfoContainer = ({ id }) => {
     if (accounts[0] !== info.owner_addr) {
       alert('只有該專案擁有者可提領');
       setNotOwner(true);
-      return;
+      // return;
     }
     setOpenWithdrawDialog(true);
   };

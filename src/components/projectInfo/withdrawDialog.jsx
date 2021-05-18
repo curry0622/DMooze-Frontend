@@ -12,6 +12,7 @@ import {
   createMuiTheme,
   ThemeProvider,
   withStyles,
+  InputAdornment,
 } from '@material-ui/core';
 
 import getEth2Twd from '../../utils/getEth2Twd';
@@ -83,39 +84,50 @@ const WithdrawDialog = ({
         aria-labelledby="title"
         aria-describedby="content"
       >
-        <StyledDialogTitle id="title">
-          提領 {money != 0 ? `${(money * exchangeRate).toFixed(0)} 元` : ''}
-        </StyledDialogTitle>
+        <StyledDialogTitle id="title">提領</StyledDialogTitle>
         <DialogContent id="content" style={{ overflow: 'hidden' }}>
           <DialogContentText>
             專案已結束募款階段
             <br />
             擁有者可開始提領款項，並註記每筆款項的詳細用途
             <br />
-            目前已提領 {withdrawn.toFixed(0)} 元，剩餘 {left.toFixed(0)} 元
+            目前已提領 <b>NT$ {withdrawn.toFixed(0)}</b>，剩餘{' '}
+            <b>NT$ {left.toFixed(0)}</b>
           </DialogContentText>
           <StyledTextField
-            label="Eth"
+            label={`${
+              money != 0 ? `NT$ ${(money * exchangeRate).toFixed(0)}` : ''
+            }`}
             type="number"
             variant="outlined"
-            size="small"
+            size="medium"
             value={money}
             onChange={(e) => setMoney(e.target.value)}
             style={{
-              width: '120px',
+              width: '160px',
               marginTop: '10px',
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">Eth</InputAdornment>
+              ),
             }}
           />
           <StyledTextField
-            label="用途"
+            label=""
             type="text"
             variant="outlined"
-            size="small"
+            size="medium"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             style={{
               marginLeft: '10px',
               marginTop: '10px',
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">用於</InputAdornment>
+              ),
             }}
           />
         </DialogContent>

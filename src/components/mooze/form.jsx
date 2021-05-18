@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
 /* eslint-disable react/button-has-type */
@@ -13,6 +14,7 @@ import {
   Button,
   CircularProgress,
   Snackbar,
+  InputAdornment,
 } from '@material-ui/core';
 import ReplayIcon from '@material-ui/icons/Replay';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
@@ -72,6 +74,7 @@ const MoozeForm = () => {
   const [imgArr, setImgArr] = useState(new FormData());
   const [cnt, setCnt] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [exchangeRate, setExchangeRate] = useState(0);
 
   const initialValues = {
     name: '',
@@ -111,7 +114,7 @@ const MoozeForm = () => {
         .send({ from: accounts[0] });
       await createProject(true, id, {
         owner_addr: accounts[0],
-        target_price: values.target / (await getEth2Twd()),
+        target_price: values.target,
         project_description: values.description,
         project_name: values.name,
         representative: values.owner,
@@ -154,6 +157,8 @@ const MoozeForm = () => {
     }
   }, [web3]);
 
+  useEffect(async () => setExchangeRate(await getEth2Twd()), []);
+
   return (
     <form
       className={classNames('mooze-form-container')}
@@ -189,7 +194,11 @@ const MoozeForm = () => {
         />
         <StyledTextField
           name="target"
-          label="目標金額 (TWD)"
+          label={`目標金額 ${
+            formik.values.target != 0
+              ? `NT$ ${(formik.values.target * exchangeRate).toFixed(0)}`
+              : ''
+          }`}
           value={formik.values.target}
           onChange={formik.handleChange}
           error={formik.touched.owner && Boolean(formik.errors.owner)}
@@ -198,6 +207,11 @@ const MoozeForm = () => {
           type="number"
           size="small"
           fullWidth
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">Eth</InputAdornment>
+            ),
+          }}
         />
         <StyledTextField
           name="email"
