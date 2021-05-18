@@ -8,3 +8,19 @@
   padding: 0 8rem;
   width: 100%;
 }
+
+.projects-mode-container {
+  @include flex(row, center, center);
+
+  margin-top: 70px;
+  margin-bottom: 50px;
+  width: 100%;
+}
+
+.projects-page-container {
+  @include flex(row, center, center);
+
+  margin-bottom: 5%;
+  width: 100%;
+  color: $text-color;
+}

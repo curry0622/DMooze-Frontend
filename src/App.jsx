@@ -70,7 +70,7 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/projects" component={ProjectsPage} />
         <Route path="/mooze" component={MoozePage} />
-        <Route path="/projects/:addr" component={ProjectInfoPage} />
+        <Route path="/projects/:id" component={ProjectInfoPage} />
       </Switch>
     </Web3Context.Provider>
   );

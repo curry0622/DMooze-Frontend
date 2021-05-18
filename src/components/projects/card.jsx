@@ -1,24 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const Card = ({ addr, name, img, price, target, day }) => {
+import getEth2Twd from '../../utils/getEth2Twd';
+
+const Card = ({ id, name, img, price, target, day }) => {
+  const [exchangeRate, setExchangeRate] = useState(0);
   const progress = ((price / target) * 100).toFixed(0);
+
+  useEffect(async () => setExchangeRate(await getEth2Twd()), []);
 
   return (
     <Link
       className={classNames('projects-card-container')}
-      to={`/projects/${addr}`}
+      to={`/projects/${id}`}
     >
       <img
         className={classNames('projects-card-img')}
         alt="project"
-        src={`${process.env.PUBLIC_URL}/projectsPage/${img}.png`}
+        src={img}
       />
       <div className={classNames('projects-card-content-container')}>
         <div className={classNames('projects-card-content-name')}>{name}</div>
-        <div className={classNames('projects-card-content-progress')}>
+        <div
+          className={classNames('projects-card-content-progress')}
+          style={{ backgroundColor: `${progress < 100 ? '#555' : '#eb0000'}` }}
+        >
           <div
             className={classNames('projects-card-content-progress-value')}
             style={{ left: `${progress}%` }}
@@ -26,11 +34,17 @@ const Card = ({ addr, name, img, price, target, day }) => {
         </div>
         <div className={classNames('projects-card-content-info-container')}>
           <div className={classNames('projects-card-content-info-money')}>
-            ${price}
+            NT$ {(price * exchangeRate).toFixed(0)}
             <span>{progress}%</span>
           </div>
-          <div className={classNames('projects-card-content-info-day')}>
-            還剩{day}天
+          <div
+            className={classNames(
+              `projects-card-content-info-day${
+                day === 'expired' ? '--expired' : ''
+              }`,
+            )}
+          >
+            {day === 'expired' ? '已結束' : `還剩 ${day}`}
           </div>
         </div>
       </div>
@@ -39,12 +53,12 @@ const Card = ({ addr, name, img, price, target, day }) => {
 };
 
 Card.propTypes = {
-  addr: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   target: PropTypes.number.isRequired,
-  day: PropTypes.number.isRequired,
+  day: PropTypes.string.isRequired,
 };
 
 export default Card;

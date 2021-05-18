@@ -21,7 +21,7 @@
 }
 
 .mooze-form-btn {
-  @include neumorphism();
+  @include neumorphism-btn();
 
   padding: 0.4rem 1.5rem;
 }

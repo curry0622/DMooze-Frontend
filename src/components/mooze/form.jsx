@@ -22,6 +22,7 @@ import Web3Context from '../../contexts/web3Context';
 import getUniqueId from '../../apis/getUniqueId';
 import createProject from '../../apis/createProject';
 import uploadImages from '../../apis/uploadImages';
+import getEth2Twd from '../../utils/getEth2Twd';
 
 const theme = createMuiTheme({
   typography: {
@@ -56,12 +57,6 @@ const StyledTextField = withStyles({
 const StyledButton = withStyles({
   root: {
     color: '#555',
-    borderColor: '#aaa',
-    backgroundColor: 'transparent',
-    '&:hover': {
-      borderColor: '#555',
-      backgroundColor: 'transparent',
-    },
   },
 })(Button);
 
@@ -111,20 +106,23 @@ const MoozeForm = () => {
     setIsLoading(true);
     const id = await getUniqueId();
     try {
-      await contract.methods.set(8989989).send({ from: accounts[0] });
-      createProject(true, id, {
+      const { transactionHash } = await contract.methods
+        .set(8989989)
+        .send({ from: accounts[0] });
+      await createProject(true, id, {
         owner_addr: accounts[0],
-        target_price: values.target,
+        target_price: values.target / (await getEth2Twd()),
         project_description: values.description,
         project_name: values.name,
         representative: values.owner,
         email: values.email,
         phone: values.phone,
+        create_hash: transactionHash,
       });
       uploadImages(id, imgArr);
     } catch (e) {
       alert(e.message);
-      createProject(false, id, {});
+      await createProject(false, id, {});
     }
     actions.resetForm({
       values: initialValues,
@@ -149,10 +147,10 @@ const MoozeForm = () => {
     validationSchema,
   });
 
-  useEffect(() => {
+  useEffect(async () => {
     if (web3 !== undefined) {
-      getAccountsInstance();
-      getContractInstance();
+      await getAccountsInstance();
+      await getContractInstance();
     }
   }, [web3]);
 
@@ -191,7 +189,7 @@ const MoozeForm = () => {
         />
         <StyledTextField
           name="target"
-          label="目標金額 (ETH)"
+          label="目標金額 (TWD)"
           value={formik.values.target}
           onChange={formik.handleChange}
           error={formik.touched.owner && Boolean(formik.errors.owner)}
@@ -250,7 +248,6 @@ const MoozeForm = () => {
           />
           <StyledButton
             variant="outlined"
-            color="primary"
             component="span"
             startIcon={<ImageOutlinedIcon />}
           >
@@ -260,7 +257,6 @@ const MoozeForm = () => {
         <StyledButton
           type="submit"
           variant="outlined"
-          color="primary"
           startIcon={<ArrowUpwardOutlinedIcon />}
         >
           提交
@@ -268,7 +264,6 @@ const MoozeForm = () => {
         <StyledButton
           type="reset"
           variant="outlined"
-          color="primary"
           startIcon={<ReplayIcon />}
           onClick={resetImages}
         >
