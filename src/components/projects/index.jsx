@@ -13,27 +13,35 @@ const StyledButton = withStyles({
   },
 })(Button);
 
+const LeftButton = withStyles({
+  root: {
+    color: '#555',
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+    '&:disabled': {
+      color: '#fff',
+      backgroundColor: '#555',
+    },
+  },
+})(Button);
+
+const RightButton = withStyles({
+  root: {
+    color: '#555',
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+    '&:disabled': {
+      color: '#fff',
+      backgroundColor: '#555',
+    },
+  },
+})(Button);
+
 const ProjectsContainer = () => {
   const [projects, setProjects] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
   const [page, setPage] = useState(1);
-
-  useEffect(async () => {
-    setTotalPage(await getTotalPage());
-  }, []);
-
-  useEffect(async () => {
-    let tmp = await getProjectsByPage(page);
-    tmp = tmp.map((d) => ({
-      id: d.proposal_id,
-      name: d.project_name,
-      img: d.img_url[0],
-      price: d.current_price,
-      target: d.target_price,
-      day: d.left_time,
-    }));
-    setProjects(tmp);
-  }, [page]);
+  const [expired, setExpired] = useState(false);
 
   const createCards = projects.map((d) => (
     <Card
@@ -47,9 +55,42 @@ const ProjectsContainer = () => {
     />
   ));
 
+  useEffect(async () => {
+    setTotalPage(await getTotalPage(expired));
+  }, []);
+
+  useEffect(async () => {
+    let tmp = await getProjectsByPage(page, expired);
+    tmp = tmp.map((d) => ({
+      id: d.proposal_id,
+      name: d.project_name,
+      img: d.img_url[0],
+      price: d.current_price,
+      target: d.target_price,
+      day: d.left_time,
+    }));
+    setProjects(tmp);
+  }, [page, expired]);
+
   return (
     <div className={classNames('projects-container')}>
       <Banner />
+      <div className={classNames('projects-mode-container')}>
+        <LeftButton
+          onClick={() => setExpired(false)}
+          disabled={!expired}
+          variant="outlined"
+        >
+          募款中
+        </LeftButton>
+        <RightButton
+          onClick={() => setExpired(true)}
+          disabled={expired}
+          variant="outlined"
+        >
+          已結束
+        </RightButton>
+      </div>
       <div className={classNames('projects-cards-container')}>
         {createCards}
       </div>
