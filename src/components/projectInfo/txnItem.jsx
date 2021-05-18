@@ -111,7 +111,7 @@ const TxnItem = ({ position, from, type, money, txnHash, description }) => {
         primary={from}
         secondary={`${getType()} ${
           money !== 0 ? `NT$ ${(money * exchangeRate).toFixed(0)}` : ''
-        } ${description}`}
+        } ${description !== '' ? `用於${description}` : ''}`}
       />
     </StyledListItem>
   );
