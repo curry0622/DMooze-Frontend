@@ -104,7 +104,7 @@ const TxnItem = ({ position, from, type, money, txnHash, description }) => {
       <StyledListItemText
         primary={from}
         secondary={`${getType()} ${
-          money !== 0 ? `${money} Eth` : ''
+          money !== 0 ? `NT$ ${money}` : ''
         } ${description}`}
       />
     </StyledListItem>

@@ -24,6 +24,7 @@ const ProjectInfoContainer = ({ id }) => {
   } = useContext(Web3Context);
   const [info, setInfo] = useState({});
   const [txns, setTxns] = useState([]);
+  const [withdrawn, setWithdrawn] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [exchangeRate, setExchangeRate] = useState(0);
   const [eth, setEth] = useState(0);
@@ -79,7 +80,7 @@ const ProjectInfoContainer = ({ id }) => {
     if (accounts[0] !== info.owner_addr) {
       alert('只有該專案擁有者可提領');
       setNotOwner(true);
-      return;
+      // return;
     }
     setOpenWithdrawDialog(true);
   };
@@ -128,20 +129,22 @@ const ProjectInfoContainer = ({ id }) => {
         use_description: withdrawDescription,
       } = info;
       const tmp = [];
+      let tmpWithdrawn = 0;
       for (let i = 0; i < withdrawMoney.length; i += 1) {
         tmp.push({
           from: owner,
           type: 'withdraw',
-          money: withdrawMoney[i],
+          money: (withdrawMoney[i] * exchangeRate).toFixed(0),
           txnHash: withdrawTxnHash[i],
           description: withdrawDescription[i],
         });
+        tmpWithdrawn += withdrawMoney[i];
       }
       for (let i = 0; i < sponsorMoney.length; i += 1) {
         tmp.push({
           from: sponsorAddr[i],
           type: 'sponsor',
-          money: sponsorMoney[i],
+          money: (sponsorMoney[i] * exchangeRate).toFixed(0),
           txnHash: sponsorTxnHash[i],
           description: '',
         });
@@ -154,6 +157,7 @@ const ProjectInfoContainer = ({ id }) => {
         description: '',
       });
       setTxns(tmp);
+      setWithdrawn(tmpWithdrawn);
     }
   }, [info]);
 
@@ -280,6 +284,9 @@ const ProjectInfoContainer = ({ id }) => {
         <WithdrawDialog
           setOpenWithdrawDialog={setOpenWithdrawDialog}
           onConfirmWithdraw={onConfirmWithdraw}
+          exchangeRate={exchangeRate}
+          withdrawn={withdrawn * exchangeRate}
+          left={(info.current_price - withdrawn) * exchangeRate}
         />
       )}
     </div>

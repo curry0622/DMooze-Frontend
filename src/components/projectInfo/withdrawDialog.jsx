@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -13,8 +13,6 @@ import {
   ThemeProvider,
   withStyles,
 } from '@material-ui/core';
-
-import getEth2Twd from '../../utils/getEth2Twd';
 
 const theme = createMuiTheme({
   typography: {
@@ -52,8 +50,13 @@ const StyledTextField = withStyles({
   },
 })(TextField);
 
-const WithdrawDialog = ({ setOpenWithdrawDialog, onConfirmWithdraw }) => {
-  const [exchangeRate, setExchangeRate] = useState(0);
+const WithdrawDialog = ({
+  setOpenWithdrawDialog,
+  onConfirmWithdraw,
+  exchangeRate,
+  withdrawn,
+  left,
+}) => {
   const [open, setOpen] = useState(true);
   const [money, setMoney] = useState(0);
   const [description, setDescription] = useState('');
@@ -68,8 +71,6 @@ const WithdrawDialog = ({ setOpenWithdrawDialog, onConfirmWithdraw }) => {
     onClose();
   };
 
-  useEffect(async () => setExchangeRate(await getEth2Twd()), []);
-
   return (
     <ThemeProvider theme={theme}>
       <Dialog
@@ -78,17 +79,19 @@ const WithdrawDialog = ({ setOpenWithdrawDialog, onConfirmWithdraw }) => {
         aria-labelledby="title"
         aria-describedby="content"
       >
-        <StyledDialogTitle id="title">提領</StyledDialogTitle>
+        <StyledDialogTitle id="title">
+          提領 {money != 0 ? `${(money * exchangeRate).toFixed(0)} 元` : ''}
+        </StyledDialogTitle>
         <DialogContent id="content" style={{ overflow: 'hidden' }}>
           <DialogContentText>
             專案已結束募款階段
             <br />
             擁有者可開始提領款項，並註記每筆款項的詳細用途
             <br />
-            目前已提領 12300 元，剩餘 191029 元
+            目前已提領 {withdrawn.toFixed(0)} 元，剩餘 {left.toFixed(0)} 元
           </DialogContentText>
           <StyledTextField
-            label="新台幣"
+            label="Eth"
             type="number"
             variant="outlined"
             size="small"
@@ -114,7 +117,14 @@ const WithdrawDialog = ({ setOpenWithdrawDialog, onConfirmWithdraw }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>取消</Button>
-          <Button onClick={onSend} disabled={money <= 0 || description === ''}>
+          <Button
+            onClick={onSend}
+            disabled={
+              (money * exchangeRate).toFixed(0) <= 0 ||
+              description === '' ||
+              (money * exchangeRate).toFixed(0) > left
+            }
+          >
             送出
           </Button>
         </DialogActions>
@@ -126,6 +136,9 @@ const WithdrawDialog = ({ setOpenWithdrawDialog, onConfirmWithdraw }) => {
 WithdrawDialog.propTypes = {
   setOpenWithdrawDialog: PropTypes.func.isRequired,
   onConfirmWithdraw: PropTypes.func.isRequired,
+  exchangeRate: PropTypes.number.isRequired,
+  withdrawn: PropTypes.number.isRequired,
+  left: PropTypes.number.isRequired,
 };
 
 export default WithdrawDialog;
