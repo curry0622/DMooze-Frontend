@@ -6,6 +6,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import classNames from 'classnames';
+import dayjs from 'dayjs';
 import {
   createMuiTheme,
   withStyles,
@@ -121,6 +122,7 @@ const MoozeForm = () => {
         email: values.email,
         phone: values.phone,
         create_hash: transactionHash,
+        start_time: dayjs().format('YYYY-MM-DDTHH:mm:ss'),
       });
       uploadImages(id, imgArr);
     } catch (e) {
