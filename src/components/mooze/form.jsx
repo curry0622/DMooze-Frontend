@@ -247,7 +247,7 @@ const MoozeForm = () => {
           variant="outlined"
           type="text"
           size="small"
-          rowsMax="3"
+          rowsMax="4"
           fullWidth
           multiline
         />
