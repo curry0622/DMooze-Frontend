@@ -179,7 +179,10 @@ const ProjectInfoContainer = ({ id }) => {
         {mapImages}
       </div>
       <div className={classNames('project-info-text-container')}>
-        <div className={classNames('project-info-text-progress-container')}>
+        <div
+          className={classNames('project-info-text-progress-container')}
+          style={{ backgroundColor: `${progress < 100 ? '#555' : '#ff8585'}` }}
+        >
           <div className={classNames('bar')} style={{ left: `${progress}%` }} />
         </div>
         <div className={classNames('project-info-text-top-container')}>

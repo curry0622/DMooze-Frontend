@@ -20,7 +20,7 @@ const Card = ({ id, name, img, price, target, day, exchangeRate }) => {
         <div className={classNames('projects-card-content-name')}>{name}</div>
         <div
           className={classNames('projects-card-content-progress')}
-          style={{ backgroundColor: `${progress < 100 ? '#555' : '#eb0000'}` }}
+          style={{ backgroundColor: `${progress < 100 ? '#555' : '#ff8585'}` }}
         >
           <div
             className={classNames('projects-card-content-progress-value')}
