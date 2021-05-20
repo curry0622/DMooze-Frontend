@@ -48,7 +48,7 @@ const Card = ({ id, name, img, price, target, day, exchangeRate }) => {
 };
 
 Card.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,

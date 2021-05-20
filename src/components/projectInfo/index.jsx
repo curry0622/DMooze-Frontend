@@ -93,10 +93,7 @@ const ProjectInfoContainer = ({ id }) => {
     try {
       const { transactionHash } = await contract.methods
         .withdraw(id, web3.utils.toWei(money, 'ether'), description)
-        .send({
-          from: accounts[0],
-          value: web3.utils.toWei(money, 'ether'),
-        });
+        .send({ from: accounts[0] });
       await withdraw({
         money,
         proposal_id: id,

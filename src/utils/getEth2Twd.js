@@ -8,7 +8,7 @@ const getEth2Twd = async () => {
     });
     const response = await api.get(`/exchange-rates?currency=ETH`);
     // const response = await api.get('/data/price?fsym=ETH&tsyms=TWD');
-    return response.data.data.rates.TWD;
+    return parseInt(response.data.data.rates.TWD, 10);
     // return(response.data.TWD);
   } catch (e) {
     alert(e);
