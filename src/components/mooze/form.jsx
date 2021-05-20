@@ -111,7 +111,7 @@ const MoozeForm = () => {
     const id = await getUniqueId();
     try {
       const { transactionHash } = await contract.methods
-        .set(8989989)
+        .create(id, dayjs().unix())
         .send({ from: accounts[0] });
       await createProject(true, id, {
         owner_addr: accounts[0],

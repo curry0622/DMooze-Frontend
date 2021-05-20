@@ -57,8 +57,11 @@ const ProjectInfoContainer = ({ id }) => {
     setIsLoading(true);
     try {
       const { transactionHash } = await contract.methods
-        .set(1)
-        .send({ from: accounts[0] });
+        .sponsor(id, web3.utils.toWei(eth, 'ether'))
+        .send({
+          from: accounts[0],
+          value: web3.utils.toWei(eth, 'ether'),
+        });
       await sponsor({
         money: eth,
         proposal_id: id,
@@ -80,7 +83,7 @@ const ProjectInfoContainer = ({ id }) => {
     if (accounts[0] !== info.owner_addr) {
       alert('只有該專案擁有者可提領');
       setNotOwner(true);
-      // return;
+      return;
     }
     setOpenWithdrawDialog(true);
   };
@@ -89,8 +92,11 @@ const ProjectInfoContainer = ({ id }) => {
     setIsLoading(true);
     try {
       const { transactionHash } = await contract.methods
-        .set(1)
-        .send({ from: accounts[0] });
+        .withdraw(id, web3.utils.toWei(money, 'ether'), description)
+        .send({
+          from: accounts[0],
+          value: web3.utils.toWei(money, 'ether'),
+        });
       await withdraw({
         money,
         proposal_id: id,
