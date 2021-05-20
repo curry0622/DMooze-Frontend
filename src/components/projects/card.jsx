@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import getEth2Twd from '../../utils/getEth2Twd';
-
-const Card = ({ id, name, img, price, target, day }) => {
-  const [exchangeRate, setExchangeRate] = useState(0);
+const Card = ({ id, name, img, price, target, day, exchangeRate }) => {
   const progress = ((price / target) * 100).toFixed(0);
-
-  useEffect(async () => setExchangeRate(await getEth2Twd()), []);
 
   return (
     <Link
@@ -59,6 +54,7 @@ Card.propTypes = {
   price: PropTypes.number.isRequired,
   target: PropTypes.number.isRequired,
   day: PropTypes.string.isRequired,
+  exchangeRate: PropTypes.number.isRequired,
 };
 
 export default Card;
