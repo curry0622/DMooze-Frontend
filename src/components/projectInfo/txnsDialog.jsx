@@ -1,6 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { useState } from 'react';
 import classNames from 'classnames';
+import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -37,7 +38,7 @@ const StyledDialogContent = withStyles({
   },
 })(DialogContent);
 
-const TxnsDialog = ({ setOpenTxnsDialog, txns, phone, mail }) => {
+const TxnsDialog = ({ setOpenTxnsDialog, exchangeRate, txns, phone, mail }) => {
   const [open, setOpen] = useState(true);
 
   const onClose = () => {
@@ -52,12 +53,18 @@ const TxnsDialog = ({ setOpenTxnsDialog, txns, phone, mail }) => {
     return (
       <TxnItem
         key={txn.txnHash}
+        exchangeRate={exchangeRate}
         position={position}
         from={txn.from}
         type={txn.type}
         money={txn.money}
         txnHash={txn.txnHash}
         description={txn.description}
+        time={
+          i === txns.length - 1
+            ? dayjs(txn.time).format('YYYY/MM/DD')
+            : txn.time
+        }
       />
     );
   });
@@ -96,6 +103,7 @@ const TxnsDialog = ({ setOpenTxnsDialog, txns, phone, mail }) => {
 
 TxnsDialog.propTypes = {
   setOpenTxnsDialog: PropTypes.func.isRequired,
+  exchangeRate: PropTypes.number.isRequired,
   txns: PropTypes.array.isRequired,
   phone: PropTypes.string.isRequired,
   mail: PropTypes.string.isRequired,

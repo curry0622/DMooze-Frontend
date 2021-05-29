@@ -6,6 +6,7 @@ import Banner from './banner';
 import Card from './card';
 import getProjectsByPage from '../../apis/getProjectsByPage';
 import getTotalPage from '../../apis/getTotalPage';
+import getEth2Twd from '../../utils/getEth2Twd';
 
 const StyledButton = withStyles({
   root: {
@@ -42,6 +43,7 @@ const ProjectsContainer = () => {
   const [totalPage, setTotalPage] = useState(1);
   const [page, setPage] = useState(1);
   const [expired, setExpired] = useState(false);
+  const [exchangeRate, setExchangeRate] = useState(0);
 
   const createCards = projects.map((d) => (
     <Card
@@ -52,6 +54,7 @@ const ProjectsContainer = () => {
       price={d.price}
       target={d.target}
       day={d.day}
+      exchangeRate={exchangeRate}
     />
   ));
 
@@ -72,6 +75,8 @@ const ProjectsContainer = () => {
     }));
     setProjects(tmp);
   }, [page, expired]);
+
+  useEffect(async () => setExchangeRate(await getEth2Twd()), []);
 
   return (
     <div className={classNames('projects-container')}>

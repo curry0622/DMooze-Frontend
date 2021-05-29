@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Web3Context from './contexts/web3Context';
 import getWeb3 from './utils/getWeb3';
-import SimpleStorageContract from './contracts/SimpleStorage.json';
+import DMooze from './contracts/DMooze.json';
 
 import HomePage from './pages/home';
 import ProjectsPage from './pages/projects';
@@ -43,9 +43,9 @@ function App() {
   const getContractInstance = async () => {
     try {
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = SimpleStorageContract.networks[networkId];
+      const deployedNetwork = DMooze.networks[networkId];
       const instance = new web3.eth.Contract(
-        SimpleStorageContract.abi,
+        DMooze.abi,
         deployedNetwork && deployedNetwork.address,
       );
       setContract(instance);

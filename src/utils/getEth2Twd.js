@@ -3,11 +3,13 @@ import axios from 'axios';
 const getEth2Twd = async () => {
   try {
     const api = axios.create({
-      withCredentials: false,
       baseURL: 'https://api.coinbase.com/v2',
+      // baseURL: 'https://min-api.cryptocompare.com',
     });
     const response = await api.get(`/exchange-rates?currency=ETH`);
-    return response.data.data.rates.TWD;
+    // const response = await api.get('/data/price?fsym=ETH&tsyms=TWD');
+    return parseInt(response.data.data.rates.TWD, 10);
+    // return(response.data.TWD);
   } catch (e) {
     alert(e);
   }

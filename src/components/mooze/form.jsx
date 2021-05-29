@@ -6,6 +6,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import classNames from 'classnames';
+import dayjs from 'dayjs';
 import {
   createMuiTheme,
   withStyles,
@@ -110,7 +111,7 @@ const MoozeForm = () => {
     const id = await getUniqueId();
     try {
       const { transactionHash } = await contract.methods
-        .set(8989989)
+        .create(id, dayjs().unix())
         .send({ from: accounts[0] });
       await createProject(true, id, {
         owner_addr: accounts[0],
@@ -121,6 +122,7 @@ const MoozeForm = () => {
         email: values.email,
         phone: values.phone,
         create_hash: transactionHash,
+        start_time: dayjs().format('YYYY-MM-DDTHH:mm:ss'),
       });
       uploadImages(id, imgArr);
     } catch (e) {
@@ -245,7 +247,7 @@ const MoozeForm = () => {
           variant="outlined"
           type="text"
           size="small"
-          rowsMax="3"
+          rowsMax="4"
           fullWidth
           multiline
         />

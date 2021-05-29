@@ -57,8 +57,11 @@ const ProjectInfoContainer = ({ id }) => {
     setIsLoading(true);
     try {
       const { transactionHash } = await contract.methods
-        .set(1)
-        .send({ from: accounts[0] });
+        .sponsor(id, web3.utils.toWei(eth, 'ether'))
+        .send({
+          from: accounts[0],
+          value: web3.utils.toWei(eth, 'ether'),
+        });
       await sponsor({
         money: eth,
         proposal_id: id,
@@ -80,7 +83,7 @@ const ProjectInfoContainer = ({ id }) => {
     if (accounts[0] !== info.owner_addr) {
       alert('只有該專案擁有者可提領');
       setNotOwner(true);
-      // return;
+      return;
     }
     setOpenWithdrawDialog(true);
   };
@@ -89,7 +92,7 @@ const ProjectInfoContainer = ({ id }) => {
     setIsLoading(true);
     try {
       const { transactionHash } = await contract.methods
-        .set(1)
+        .withdraw(id, web3.utils.toWei(money, 'ether'), description)
         .send({ from: accounts[0] });
       await withdraw({
         money,
@@ -127,6 +130,9 @@ const ProjectInfoContainer = ({ id }) => {
         transaction_hash_input: sponsorTxnHash,
         transaction_hash_output: withdrawTxnHash,
         use_description: withdrawDescription,
+        start_time: createdTime,
+        output_time: withdrawTime,
+        input_time: sponsorTime,
       } = info;
       const tmp = [];
       let tmpWithdrawn = 0;
@@ -137,6 +143,7 @@ const ProjectInfoContainer = ({ id }) => {
           money: withdrawMoney[i],
           txnHash: withdrawTxnHash[i],
           description: withdrawDescription[i],
+          time: withdrawTime[i],
         });
         tmpWithdrawn += withdrawMoney[i];
       }
@@ -147,6 +154,7 @@ const ProjectInfoContainer = ({ id }) => {
           money: sponsorMoney[i],
           txnHash: sponsorTxnHash[i],
           description: '',
+          time: sponsorTime[i],
         });
       }
       tmp.push({
@@ -155,6 +163,7 @@ const ProjectInfoContainer = ({ id }) => {
         money: 0,
         txnHash: firstTxnHash,
         description: '',
+        time: createdTime,
       });
       setTxns(tmp);
       setWithdrawn(tmpWithdrawn);
@@ -167,7 +176,10 @@ const ProjectInfoContainer = ({ id }) => {
         {mapImages}
       </div>
       <div className={classNames('project-info-text-container')}>
-        <div className={classNames('project-info-text-progress-container')}>
+        <div
+          className={classNames('project-info-text-progress-container')}
+          style={{ backgroundColor: `${progress < 100 ? '#555' : '#ff8585'}` }}
+        >
           <div className={classNames('bar')} style={{ left: `${progress}%` }} />
         </div>
         <div className={classNames('project-info-text-top-container')}>
@@ -275,6 +287,7 @@ const ProjectInfoContainer = ({ id }) => {
       {openTxnsDialog && (
         <TxnsDialog
           setOpenTxnsDialog={setOpenTxnsDialog}
+          exchangeRate={exchangeRate}
           txns={txns}
           phone={info.phone}
           mail={info.email}
